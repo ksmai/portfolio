@@ -135,6 +135,14 @@ module.exports = {
         caseSensitive: true,
       },
     }),
+    new HTMLPlugin({
+      filename: '404.html',
+      template: INDEX,
+      minify: {
+        collapseWhitespace: true,
+        caseSensitive: true,
+      },
+    }),
     new FaviconsPlugin(FAVICON),
   ],
 };
