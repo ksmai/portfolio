@@ -25,7 +25,7 @@ module.exports = {
 
   output: {
     path: DOCS,
-    publicPath: '/portfolio',
+    publicPath: '/portfolio/',
     filename: '[name].[chunkhash].js',
   },
 
