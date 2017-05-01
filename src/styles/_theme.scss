@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+@include mat-core();
+$port-app-primary: mat-palette($mat-blue, 700, 300, 900);
+$port-app-secondary: mat-palette($mat-green, 800, 900, A400);
+$port-app-theme: mat-dark-theme($port-app-primary, $port-app-secondary);
+@include angular-material-theme($port-app-theme);
+
+.app-primary {
+  color: mat-color($port-app-primary);
+}
+
+.app-accent {
+  color: mat-color($port-app-secondary, 800);
+}

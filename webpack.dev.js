@@ -20,7 +20,7 @@ module.exports = {
   output: {
     path: DOCS,
     filename: '[name].bundle.js',
-    publicPath: '/',
+    publicPath: '/portfolio',
   },
 
   resolve: {
@@ -45,7 +45,7 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        use: '@ngtools/webpack',
+        use: ['awesome-typescript-loader', 'angular2-template-loader'],
       },
       {
         test: /\.(?:png|jpe?g|svg|gif)$/,
@@ -54,6 +54,7 @@ module.exports = {
           options: {
             limit: 10000,
           },
+        },
       },
     ],
   },
@@ -77,6 +78,5 @@ module.exports = {
   devServer: {
     noInfo: true,
     hot: true,
-    historyApiFallback: true,
   },
 };

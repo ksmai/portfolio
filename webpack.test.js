@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        use: '@ngtools/webpack',
+        use: ['awesome-typescript-loader', 'angular2-template-loader'],
       },
       {
         test: /\.(?:png|jpe?g|svg|gif)$/,

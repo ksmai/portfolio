@@ -5,7 +5,7 @@ const FaviconsPlugin = require('favicons-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const AotPlugin = require('@ngtools/webpack').AotPlugin;
 
-const DOCS = path.resolve(__dirname, 'doc');
+const DOCS = path.resolve(__dirname, 'docs');
 const SRC = path.resolve(__dirname, 'src');
 const APP = path.join(SRC, 'app');
 const INDEX = path.join(SRC, 'index.html');
@@ -21,11 +21,11 @@ module.exports = {
   entry: {
     polyfills: POLYFILLS,
     main: MAIN,
-  }
+  },
 
   output: {
     path: DOCS,
-    publicPath: '/',
+    publicPath: '/portfolio',
     filename: '[name].[chunkhash].js',
   },
 
