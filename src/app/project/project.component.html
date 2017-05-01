@@ -1,22 +1,39 @@
-<md-card *ngFor="let project of projects">
-  <img md-card-image [src]="project.thumbnail" [alt]="project.name">
-  <md-card-title>{{project.name}}</md-card-title>
-  <md-card-subtitle>{{project.description}}</md-card-subtitle>
-  <md-card-content>
-    <dl>
-      <dt>Key technology</dt>
-      <dd *ngFor="let tech of project.technology">{{tech}}</dd>
-      <dt *ngIf="project.collaborators">Collaborated with</dt>
-      <dd *ngFor="let collaborator of project.collaborators">
-        <a [href]="'https://github.com/' + collaborator.github">
-          @{{collaborator.name}}
-        </a>
-      </dd>
-    </dl>
-  </md-card-content>
+<div class="cards">
+  <md-card *ngFor="let project of projects" class="card">
+    <img
+      class="thumbnail"
+      md-card-image
+      [src]="project.thumbnail"
+      [alt]="project.name"
+      (click)="toggleInfo(project)"
+    >
 
-  <md-card-actions>
-    <a md-button [href]="project.github">SOURCE</a>
-    <a md-button [href]="project.url">DEMO</a>
-  </md-card-actions>
-</md-card>
+    <md-card-title>{{project.name}}</md-card-title>
+
+    <ng-container *ngIf="project.showInfo">
+      <md-card-subtitle>{{project.description}}</md-card-subtitle>
+      <md-card-content>
+        <dl>
+          <dt>Key technology</dt>
+          <dd *ngFor="let tech of project.technology" class="tech">
+            {{tech}}
+          </dd>
+
+          <dt *ngIf="project.collaborators">Collaborated with</dt>
+          <dd *ngFor="let collaborator of project.collaborators">
+            <a
+              [href]="'https://github.com/' + collaborator.github"
+              md-button
+              target="_new"
+            >@{{collaborator.name}}</a>
+          </dd>
+        </dl>
+      </md-card-content>
+
+      <md-card-actions align="end">
+        <a md-button [href]="project.github" target="_new">SOURCE</a>
+        <a md-button [href]="project.url" target="_new">DEMO</a>
+      </md-card-actions>
+    </ng-container>
+  </md-card>
+</div>

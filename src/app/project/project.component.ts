@@ -19,4 +19,8 @@ export class ProjectComponent implements OnInit {
       .getProjects()
       .subscribe((projects: Project[]) => this.projects = projects);
   }
+
+  toggleInfo(project: Project): void {
+    project.showInfo = !project.showInfo;
+  }
 }

@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  width: 900px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.card {
+  display: inline-block;
+  margin-bottom: 30px;
+}
+
+.thumbnail {
+  cursor: pointer;
+}
+
+.tech {
+  margin: 10px 16px;
+}
+
+dd {
+  color: rgba(255, 255, 255, .7);
+}
+
+@media (min-width: 800px) {
+  .cards {
+    column-count: 2;
+  }
+
+  .card {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
