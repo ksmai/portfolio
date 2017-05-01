@@ -1,13 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserAnimationsModule,
+} from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import '../styles/styles.scss';
+import { AboutModule } from './about/about.module';
 import { AppComponent } from './app.component';
+import { ContactModule } from './contact/contact.module';
+import { CoreModule } from './core/core.module';
+import { NavbarModule } from './navbar/navbar.module';
+import { ProjectModule } from './project/project.module';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    NavbarModule,
+    AboutModule,
+    ProjectModule,
+    ContactModule,
+    CoreModule,
   ],
 
   declarations: [

@@ -1,0 +1,42 @@
+<md-card class="card">
+  <form (ngSubmit)="submitForm()" [formGroup]="form">
+    <md-input-container>
+      <input type="text" mdInput formControlName="name">
+      <md-placeholder>Name</md-placeholder>
+      <md-error align="end">{{errors.name}}</md-error>
+      <md-hint align="end">{{hints.name}}</md-hint>
+    </md-input-container>
+
+    <md-input-container>
+      <input type="email" mdInput formControlName="email">
+      <md-placeholder>Email</md-placeholder>
+      <md-error align="end">{{errors.email}}</md-error>
+    </md-input-container>
+
+    <md-input-container>
+      <textarea
+        mdInput
+        formControlName="message"
+        mdTextareaAutosize
+        [mdAutosizeMinRows]="3"
+        [mdAutosizeMaxRows]="10"
+      ></textarea>
+      <md-placeholder>Message</md-placeholder>
+      <md-error align="end">{{errors.message}}</md-error>
+      <md-hint align="end">{{hints.message}}</md-hint>
+    </md-input-container>
+
+    <button
+      type="submit"
+      md-button
+      [disabled]="this.form.status !== 'VALID'"
+    >SUBMIT</button>
+
+    <button
+      type="button"
+      md-button
+      (click)="resetForm()"
+      [disabled]="this.form.pristine"
+    >RESET</button>
+  </form>
+</md-card>

@@ -1,0 +1,15 @@
+.card {
+  width: 600px;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+md-input-container,
+input,
+textarea {
+  width: 100%;
+}
+
+textarea {
+  resize: vertical;
+}
