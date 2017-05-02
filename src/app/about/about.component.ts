@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent {
-  title = 'K.S. Mai';
+  title = 'K. S. Mai';
   subtitle = 'Aspiring web developer';
-  content = 'Lorem Ipsum';
+  content = 'Building responsive, interactive and scalable full-stack applications';
 }

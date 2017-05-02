@@ -7,6 +7,7 @@
 
 .card {
   display: inline-block;
+  width: 100%;
   margin-bottom: 30px;
 }
 
@@ -28,7 +29,7 @@ dd {
   }
 
   .card {
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 20px;
+    margin-left: 20px;
   }
 }

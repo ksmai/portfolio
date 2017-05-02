@@ -24,7 +24,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Book trading app',
-    description: 'A platform for users to connect and trade with one another. Book data are obtained using Google Books API.',
+    description: 'A platform for users to connect and trade books with one another. Book data are obtained using Google Books API.',
     technology: [
       'Angular 4',
       'express',
@@ -64,7 +64,7 @@ export const projects: Project[] = [
       { name: 'Sam Williams', github: 'SamWCoding' },
     ],
     github: 'https://github.com/ethanchoi812/momentum',
-    url: 'https://chrome.google.com/webstore/category/extensions',
+    url: 'https://chrome.google.com/webstore/detail/impulse/cfdlneaengomcfhaoofmobikhgcpmifc',
     thumbnail: impulse,
   },
   {

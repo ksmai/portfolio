@@ -1,5 +1,35 @@
+:host {
+  display: block;
+  height: 100vh;
+  background: url("../../../assets/background.jpg") no-repeat left top;
+  background-size: cover;
+  position: relative;
+}
+
 .card {
-  width: 500px;
+  width: 800px;
   max-width: 90%;
-  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, .3),
+    rgba(0, 0, 0, .15) 30%,
+    rgba(0, 0, 0, 0)
+  );
+}
+
+@media (min-width: 769px) {
+  .title {
+    font-size: 36px;
+    font-weight: bold;
+  }
+
+  .content,
+  .subtitle {
+    font-size: 21px;
+    font-weight: bold;
+  }
 }

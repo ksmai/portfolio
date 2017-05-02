@@ -14,12 +14,12 @@
       <md-card-subtitle>{{project.description}}</md-card-subtitle>
       <md-card-content>
         <dl>
-          <dt>Key technology</dt>
+          <dt>Technology stack</dt>
           <dd *ngFor="let tech of project.technology" class="tech">
             {{tech}}
           </dd>
 
-          <dt *ngIf="project.collaborators">Collaborated with</dt>
+          <dt *ngIf="project.collaborators">Collaborator(s)</dt>
           <dd *ngFor="let collaborator of project.collaborators">
             <a
               [href]="'https://github.com/' + collaborator.github"
