@@ -1,3 +1,4 @@
+/* tslint:disable max-line-length */
 import { Project } from '../helpers/project';
 
 const pinterest = require('../../assets/thumbnails/pinterest.png');

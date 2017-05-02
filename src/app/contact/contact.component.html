@@ -1,14 +1,14 @@
 <md-card class="card">
   <form (ngSubmit)="submitForm()" [formGroup]="form">
     <md-input-container>
-      <input type="text" mdInput formControlName="name">
+      <input type="text" mdInput formControlName="name" name="name">
       <md-placeholder>Name</md-placeholder>
       <md-error align="end">{{errors.name}}</md-error>
       <md-hint align="end">{{hints.name}}</md-hint>
     </md-input-container>
 
     <md-input-container>
-      <input type="email" mdInput formControlName="email">
+      <input type="email" mdInput formControlName="email" name="email">
       <md-placeholder>Email</md-placeholder>
       <md-error align="end">{{errors.email}}</md-error>
     </md-input-container>
@@ -17,6 +17,7 @@
       <textarea
         mdInput
         formControlName="message"
+        name="message"
         mdTextareaAutosize
         [mdAutosizeMinRows]="3"
         [mdAutosizeMaxRows]="10"
@@ -26,17 +27,22 @@
       <md-hint align="end">{{hints.message}}</md-hint>
     </md-input-container>
 
-    <button
-      type="submit"
-      md-button
-      [disabled]="this.form.status !== 'VALID'"
-    >SUBMIT</button>
+    <ng-container *ngIf="!submitting">
+      <button
+        type="submit"
+        md-button
+        [disabled]="form.status !== 'VALID'"
+      >SUBMIT</button>
 
-    <button
-      type="button"
-      md-button
-      (click)="resetForm()"
-      [disabled]="this.form.pristine"
-    >RESET</button>
+      <button
+        type="button"
+        md-button
+        (click)="resetForm()"
+        [disabled]="form.pristine"
+      >RESET</button>
+    </ng-container>
+
+    <md-progress-bar mode="indeterminate" *ngIf="submitting">
+    </md-progress-bar>
   </form>
 </md-card>

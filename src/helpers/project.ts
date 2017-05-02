@@ -1,7 +1,4 @@
-export class Collaborator {
-  name: string;
-  github: string;
-}
+import { Collaborator } from './collaborator';
 
 export class Project {
   name: string;

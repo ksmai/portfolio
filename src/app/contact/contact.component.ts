@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MdSnackBar } from '@angular/material';
+
+import { ContactService } from '../core/contact.service';
 
 @Component({
   selector: 'port-contact',
@@ -8,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ContactComponent implements OnInit {
   form: FormGroup;
+  submitting = false;
 
   private nameLimit = 128;
   private messageLimit = 1024;
@@ -21,22 +25,40 @@ export class ContactComponent implements OnInit {
   }
 
   get errors() {
-    const nameError = this.nameLength > this.nameLimit ?
-      `${this.nameLength} / ${this.nameLimit}` :
-      'Name is missing';
+    const nameErrors = this.form.get('name').errors;
+    let nameMessage;
+    if (!nameErrors) {
+      nameMessage = '';
+    } else if (nameErrors.required) {
+      nameMessage = 'Name is missing';
+    } else if (nameErrors.maxlength) {
+      nameMessage = `${this.nameLength} / ${this.nameLimit}`;
+    }
 
-    const emailError = this.form.value.email ?
-      'Invalid email' :
-      'Email is missing';
+    const emailErrors = this.form.get('email').errors;
+    let emailMessage;
+    if (!emailErrors) {
+      emailMessage = '';
+    } else if (emailErrors.required) {
+      emailMessage = 'Email is missing';
+    } else if (emailErrors.email) {
+      emailMessage = 'Invalid email';
+    }
 
-    const messageError = this.messageLength > this.messageLimit ?
-      `${this.messageLength} / ${this.messageLimit}` :
-      'Message is missing';
+    const messageErrors = this.form.get('message').errors;
+    let messageMessage;
+    if (!messageErrors) {
+      messageMessage = '';
+    } else if (messageErrors.required) {
+      messageMessage = 'Message is missing';
+    } else if (messageErrors.maxlength) {
+      messageMessage = `${this.messageLength} / ${this.messageLimit}`;
+    }
 
     return {
-      name: nameError,
-      email: emailError,
-      message: messageError,
+      name: nameMessage,
+      email: emailMessage,
+      message: messageMessage,
     };
   }
 
@@ -55,7 +77,11 @@ export class ContactComponent implements OnInit {
     };
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private contactService: ContactService,
+    private snackbar: MdSnackBar,
+  ) {
   }
 
   ngOnInit() {
@@ -65,7 +91,7 @@ export class ContactComponent implements OnInit {
   createForm() {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(128)]],
-      email: ['', [Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       message: ['', [Validators.required, Validators.maxLength(1024)]],
     });
   }
@@ -75,7 +101,27 @@ export class ContactComponent implements OnInit {
   }
 
   submitForm() {
-    console.log('Submitted, well, not really');
-    console.log(this.form.value);
+    this.submitting = true;
+    this.contactService
+      .submitForm(this.form.value)
+      .subscribe(
+        () => this.submitSuccess(),
+        () => this.submitFailure(),
+      );
+  }
+
+  submitSuccess() {
+    this.submitting = false;
+    this.snackbar.open('Thank you for your message', null, {
+      duration: 2000,
+    });
+  }
+
+  submitFailure() {
+    this.submitting = false;
+    this.snackbar
+      .open('Unable to submit', 'RETRY', { duration: 2000 })
+      .onAction()
+      .subscribe(() => this.submitForm());
   }
 }

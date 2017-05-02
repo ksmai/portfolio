@@ -6,6 +6,7 @@ import {
   MdIconModule,
   MdInputModule,
   MdListModule,
+  MdProgressBarModule,
   MdSnackBarModule,
   MdToolbarModule,
   MdTooltipModule,
@@ -22,6 +23,7 @@ import {
     MdCardModule,
     MdListModule,
     MdToolbarModule,
+    MdProgressBarModule,
   ],
 
   exports: [
@@ -34,6 +36,7 @@ import {
     MdCardModule,
     MdListModule,
     MdToolbarModule,
+    MdProgressBarModule,
   ],
 })
 export class MaterialModule {
