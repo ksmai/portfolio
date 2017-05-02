@@ -12,11 +12,15 @@ export class TypeItDirective implements AfterViewInit {
   private lastTimestamp = Date.now();
   private textNodes: Text[] = [];
   private cursor = '_';
+  private texts: string[];
 
   constructor(private el: ElementRef) {
   }
 
   ngAfterViewInit() {
+    this.textNodes = this.getTextNodes(this.el.nativeElement);
+    this.texts = this.textNodes.map((node) => node.nodeValue);
+    this.textNodes.forEach((node) => node.nodeValue = '');
     if (this.autoStart) {
       this.startTypeIt();
     }
@@ -28,11 +32,12 @@ export class TypeItDirective implements AfterViewInit {
     }
 
     this.started = true;
-    const textNodes = this.getTextNodes(this.el.nativeElement);
-    const texts = textNodes.map((node) => node.nodeValue);
-    textNodes.forEach((node) => node.nodeValue = '');
 
-    return this.typeIt(textNodes, texts, fps);
+    return this
+      .blinkCursor(this.textNodes[0], 4, 5)
+      .then(() => {
+        return this.typeIt(this.textNodes, this.texts, fps);
+      });
   }
 
   private typeIt(nodes: Text[], texts: string[], fps = 30): Promise<any> {

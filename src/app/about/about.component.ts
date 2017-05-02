@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  HostBinding,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'port-about',
@@ -11,8 +16,11 @@ export class AboutComponent implements AfterViewInit {
   content = 'Building responsive, interactive and scalable full-stack applications';
 
   @ViewChild('card') card: any;
+  @HostBinding('class.typing-finished') typingFinished = false;
 
   ngAfterViewInit() {
-    this.card.startTypeIt();
+    new Promise((resolve) => setTimeout(resolve, 300))
+      .then(() => this.card.startTypeIt())
+      .then(() => this.typingFinished = true);
   }
 }

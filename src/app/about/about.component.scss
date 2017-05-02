@@ -1,15 +1,33 @@
 :host {
   display: block;
   height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+$blast-time: 1.5s;
+$blast-ease: cubic-bezier(1, 0, 0, 1);
+$fade-time: $blast-time * 1.5;
+$ease-out: cubic-bezier(0, 0, .2, 1);
+
+.background {
   background: url("../../../assets/background.jpg") no-repeat left top;
   background-size: cover;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 50%;
+  bottom: 50%;
+  border-radius: 50%;
+  z-index: 2;
+  transition: all $blast-time $blast-ease;
 }
 
 .card {
   width: 800px;
   max-width: 90%;
   position: absolute;
+  z-index: 3;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -18,7 +36,62 @@
     rgba(0, 0, 0, .3),
     rgba(0, 0, 0, .15) 30%,
     rgba(0, 0, 0, 0)
-  );
+  ) no-repeat left top;
+  background-size: 100% 0;
+  transition: background-size .15s $ease-out $blast-time / 2;
+}
+
+.project-button {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  z-index: 3;
+  opacity: 0;
+  transition: all .25s $ease-out $blast-time;
+  transform: translate(-50%, 100%);
+}
+
+.overlay {
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+}
+
+:host-context(:not(.typing-finished)) .card {
+  box-shadow: none;
+}
+
+@keyframes overlay {
+  0%, #{$blast-time / $fade-time * 30%} { opacity: 0; }
+  #{$blast-time / $fade-time * 100%} { opacity: .3; }
+  100% { opacity: 0; }
+}
+
+:host-context(.typing-finished) {
+  .card {
+    background-size: 100% 100%;
+  }
+
+  .project-button {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  .background {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+  }
+
+  .overlay {
+    animation: overlay $fade-time ease-in-out;
+  }
 }
 
 @media (min-width: 769px) {
