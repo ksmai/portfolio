@@ -1,58 +1,108 @@
-import { AfterViewInit, Directive, ElementRef } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
   selector: '[portTypeIt]',
+  exportAs: 'portTypeIt',
 })
 export class TypeItDirective implements AfterViewInit {
+  @Input('portTypeIt') autoStart = true;
+
+  started = false;
+
+  private lastTimestamp = Date.now();
   private textNodes: Text[] = [];
+  private cursor = '_';
 
   constructor(private el: ElementRef) {
   }
 
   ngAfterViewInit() {
+    if (this.autoStart) {
+      this.startTypeIt();
+    }
+  }
+
+  startTypeIt(fps = 30) {
+    if (this.started) {
+      return;
+    }
+
+    this.started = true;
     const textNodes = this.getTextNodes(this.el.nativeElement);
     const texts = textNodes.map((node) => node.nodeValue);
     textNodes.forEach((node) => node.nodeValue = '');
-    setTimeout(() => this.typeIt(textNodes, texts), 2000);
+
+    return this.typeIt(textNodes, texts, fps);
   }
 
-  private typeIt(nodes: Text[], texts: string[], cursor = false): void {
+  private typeIt(nodes: Text[], texts: string[], fps = 30): Promise<any> {
     if (texts.length === 0) {
-      return;
+      return Promise.resolve();
     }
 
-    if (cursor) {
-      nodes[0].deleteData(nodes[0].data.length - 1, 1);
-      window.requestAnimationFrame(() => this.typeIt(nodes, texts));
-
-      return;
-    }
-
-    nodes[0].appendData(texts[0][0] + '_');
-    window.requestAnimationFrame(() => {
-      if (texts[0].length > 1) {
-        const remainingTexts = [texts[0].slice(1), ...texts.slice(1)];
-        const remainingNodes = nodes.slice();
-        this.typeIt(remainingNodes, remainingTexts, true);
-      } else {
-        this.blinkCursor(nodes, texts);
+    return new Promise((resolve) => {
+      const now = Date.now();
+      const animate = now - this.lastTimestamp > 1000 / fps;
+      if (animate) {
+        nodes[0].appendData(texts[0][0]);
+        this.lastTimestamp = now;
       }
+      window.requestAnimationFrame(() => {
+        let nextNodes: Text[];
+        let nextTexts: string[];
+        let blinks: Promise<any>;
+        if (!animate) {
+          nextNodes = nodes;
+          nextTexts = texts;
+          blinks = Promise.resolve();
+        } else if (texts[0].length > 1) {
+          nextTexts = [texts[0].slice(1), ...texts.slice(1)];
+          nextNodes = nodes;
+          blinks = nextTexts[0][0].match(/\S/) ?
+            Promise.resolve() :
+            this.blinkCursor(nodes[0], 1, fps);
+        } else {
+          nextTexts = texts.slice(1);
+          nextNodes = nodes.slice(1);
+          blinks = this.blinkCursor(nodes[0], 3, 5);
+        }
+        blinks.then(() => {
+          return this.typeIt(nextNodes, nextTexts, fps).then(resolve);
+        });
+      });
     });
   }
 
-  private blinkCursor(nodes: Text[], texts: string[], time = 0, total = 9): void {
-    if (time < total * 2 + 1) {
-      window.requestAnimationFrame(() => {
-        if (time % 2 === 0) {
-          nodes[0].deleteData(nodes[0].data.length - 1, 1);
-        } else {
-          nodes[0].appendData('_');
-        }
-        this.blinkCursor(nodes, texts, time + 1, total);
-      });
-    } else {
-      this.typeIt(nodes.slice(1), texts.slice(1));
+  private blinkCursor(
+    node: Text,
+    total: number,
+    fps = 30,
+    time = 0,
+  ): Promise<any> {
+    if (time >= total * 2) {
+      return Promise.resolve();
     }
+
+    return new Promise((resolve) => {
+      const now = Date.now();
+      const animate = now - this.lastTimestamp > 1000 / fps;
+      if (animate) {
+        if (time % 2 === 0) {
+          node.appendData(this.cursor);
+        } else {
+          node.deleteData(
+            node.data.length - this.cursor.length,
+            this.cursor.length,
+          );
+        }
+        this.lastTimestamp = now;
+      }
+
+      window.requestAnimationFrame(() => {
+        const nextTime = animate ? time + 1 : time;
+        this.blinkCursor(node, total, fps, nextTime).then(resolve);
+      });
+    });
   }
 
   private isEmptyTextNode(node: Text): boolean {
