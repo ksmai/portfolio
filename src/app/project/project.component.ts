@@ -34,6 +34,10 @@ export class ProjectComponent implements OnInit {
       return;
     }
 
+    if (evt.target.blur) {
+      evt.target.blur();
+    }
+
     const options = {
       data: {
         title: project.name,
