@@ -1,39 +1,44 @@
-<div class="cards">
-  <md-card *ngFor="let project of projects" class="card">
+<h2 class="subheading">Projects</h2>
+
+<md-grid-list [cols]="cols" [gutterSize]="20" rowHeight="1535:876">
+  <md-grid-tile
+    *ngFor="let project of projects"
+    class="tile"
+    (click)="showProject($event, project)"
+  >
     <img
       class="thumbnail"
-      md-card-image
       [src]="project.thumbnail"
       [alt]="project.name"
-      (click)="toggleInfo(project)"
     >
 
-    <md-card-title>{{project.name}}</md-card-title>
+    <div class="info">
+      <h3 class="title">{{project.name}}</h3>
 
-    <ng-container *ngIf="project.showInfo">
-      <md-card-subtitle>{{project.description}}</md-card-subtitle>
-      <md-card-content>
-        <dl>
-          <dt>Technology stack</dt>
-          <dd *ngFor="let tech of project.technology" class="tech">
-            {{tech}}
-          </dd>
+      <md-chip-list class="technology">
+        <md-chip
+          *ngFor="let tech of project.technology"
+          color="primary"
+          selected="true"
+          class="tech"
+        >
+          {{tech}}
+        </md-chip>
+      </md-chip-list>
 
-          <dt *ngIf="project.collaborators">Collaborator(s)</dt>
-          <dd *ngFor="let collaborator of project.collaborators">
-            <a
-              [href]="'https://github.com/' + collaborator.github"
-              md-button
-              target="_new"
-            >@{{collaborator.name}}</a>
-          </dd>
-        </dl>
-      </md-card-content>
-
-      <md-card-actions align="end">
-        <a md-button [href]="project.github" target="_new">SOURCE</a>
-        <a md-button [href]="project.url" target="_new">DEMO</a>
-      </md-card-actions>
-    </ng-container>
-  </md-card>
-</div>
+      <md-chip-list class="collaborators">
+        <md-chip
+          *ngFor="let collaborator of project.collaborators"
+          color="accent"
+          selected="true"
+          class="collaborator"
+        >
+          <a
+            [href]="'https://github.com/' + collaborator.github"
+            target="_new"
+          >@{{collaborator.name}}</a>
+        </md-chip>
+      </md-chip-list>
+    </div>
+  </md-grid-tile>
+</md-grid-list>

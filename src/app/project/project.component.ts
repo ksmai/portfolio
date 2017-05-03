@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 import { Project } from '../../helpers/project';
 import { ProjectService } from '../core/project.service';
@@ -10,6 +10,7 @@ import { ProjectService } from '../core/project.service';
 })
 export class ProjectComponent implements OnInit {
   projects: Project[] = [];
+  cols = 1;
 
   constructor(private projectService: ProjectService) {
   }
@@ -17,10 +18,21 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
     this.projectService
       .getProjects()
-      .subscribe((projects: Project[]) => this.projects = projects);
+      .subscribe((projects: Project[]) => {
+        this.projects = projects;
+        this.onResize();
+      });
   }
 
-  toggleInfo(project: Project): void {
-    project.showInfo = !project.showInfo;
+  showProject(evt: any, project: Project) {
+    if (evt.target.tagName.match(/^a$/i)) {
+      return;
+    }
+    console.log(project);
+  }
+
+  @HostListener('window:resize')
+  private onResize() {
+    this.cols = window && window.innerWidth > 800 ? 2 : 1;
   }
 }

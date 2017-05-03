@@ -12,17 +12,26 @@
   </md-card-actions>
 </md-card>
 
-<button md-raised-button color="primary" class="project-button">
-  VIEW PROJECTS
-</button>
+<button
+  md-raised-button
+  color="primary"
+  class="project-button"
+  (click)="viewProjects()"
+>VIEW PROJECTS</button>
 
-<button md-raised-button color="warn" class="destroy-button">
-  DESTROY THIS PAGE
-</button>
+<button
+  md-raised-button
+  color="warn"
+  class="destroy-button"
+  (click)="destroyPage()"
+>DESTROY THIS PAGE</button>
 
-<button md-icon-button color="accent" class="skip-button">
-  <md-icon>skip_next</md-icon>
-</button>
+<button
+  md-icon-button
+  color="accent"
+  class="skip-button"
+  (click)="viewProjects()"
+><md-icon>skip_next</md-icon></button>
 
 <div class="background">
   <div class="overlay"></div>

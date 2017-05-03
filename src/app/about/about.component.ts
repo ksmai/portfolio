@@ -23,4 +23,10 @@ export class AboutComponent implements AfterViewInit {
       .then(() => this.card.startTypeIt())
       .then(() => this.typingFinished = true);
   }
+
+  destroyPage(): void {
+  }
+
+  viewProjects(): void {
+  }
 }
