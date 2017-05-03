@@ -4,6 +4,7 @@ import {
   MdCardModule,
   MdChipsModule,
   MdDialogModule,
+  MdGridListModule,
   MdIconModule,
   MdInputModule,
   MdListModule,
@@ -11,7 +12,6 @@ import {
   MdSnackBarModule,
   MdToolbarModule,
   MdTooltipModule,
-  MdGridListModule,
 } from '@angular/material';
 
 @NgModule({

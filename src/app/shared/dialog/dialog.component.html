@@ -1,0 +1,17 @@
+<h1 md-dialog-title>{{title}}</h1>
+<p md-dialog-content>{{content}}</p>
+<div md-dialog-actions align="end">
+  <ng-container *ngIf="negativeLink; else rejectButton">
+    <a md-button [href]="negativeLink" target="_new">{{negative}}</a>
+  </ng-container>
+  <ng-template #rejectButton>
+    <button md-button (click)="reject()">{{negative}}</button>
+  </ng-template>
+
+  <ng-container *ngIf="positiveLink; else acceptButton">
+    <a md-button [href]="positiveLink" target="_new">{{positive}}</a>
+  </ng-container>
+  <ng-template #acceptButton>
+    <button md-button (click)="accept()">{{positive}}</button>
+  </ng-template>
+</div>

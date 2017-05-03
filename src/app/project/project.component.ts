@@ -1,7 +1,9 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { MdDialog } from '@angular/material';
 
 import { Project } from '../../helpers/project';
 import { ProjectService } from '../core/project.service';
+import { DialogComponent } from '../shared/dialog/dialog.component';
 
 @Component({
   selector: 'port-project',
@@ -12,7 +14,10 @@ export class ProjectComponent implements OnInit {
   projects: Project[] = [];
   cols = 1;
 
-  constructor(private projectService: ProjectService) {
+  constructor(
+    private projectService: ProjectService,
+    private dialog: MdDialog,
+  ) {
   }
 
   ngOnInit() {
@@ -28,7 +33,23 @@ export class ProjectComponent implements OnInit {
     if (evt.target.tagName.match(/^a$/i)) {
       return;
     }
-    console.log(project);
+
+    const options = {
+      data: {
+        title: project.name,
+        content: project.description,
+        positive: 'DEMO',
+        negative: 'SOURCE',
+        positiveLink: project.url,
+        negativeLink: project.github,
+      },
+    };
+
+    if (this.cols > 1) {
+      Object.assign(options, { width: '500px' });
+    }
+
+    this.dialog.open(DialogComponent, options);
   }
 
   @HostListener('window:resize')
