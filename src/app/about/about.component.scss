@@ -175,60 +175,60 @@ $bounce-time: 3s;
     $i-sq: $i / 20 * $i / 20;
     #{$i * 1%} {
       transform: 
-        translate(-500% + $i-sq * 200%, -200% + $i-sq * 200%)
+        translate(-500% + $i / 20 * 145%, -200% + $i-sq * 200%)
         rotate(288deg * $i / 20);
     }
   }
 
   20% {
     opacity: 1;
-    transform: translate(-300%, 0) rotate(288deg);
+    transform: translate(-355%, 0) rotate(288deg);
   }
 
   @for $i from 1 through 19 {
     $i-sq: $i / 20 * $i / 20;
     #{40% - $i * 1%} {
       transform:
-        translate(-200% - 100% * $i-sq, -100% + 100% * $i-sq)
+        translate(-251% - 104% * $i / 20, -100% + 100% * $i-sq)
         rotate(432deg - 144deg * $i / 20);
     }
   }
 
   40% {
-    transform: translate(-200%, -100%) rotate(432deg);
+    transform: translate(-251%, -100%) rotate(432deg);
   }
 
   @for $i from 1 through 19 {
     $i-sq: $i / 20 * $i / 20;
     #{40% + $i * 1%} {
       transform: 
-        translate(-200% + $i-sq * 100%, -100% + $i-sq * 100%)
+        translate(-251% + $i / 20 * 104%, -100% + $i-sq * 100%)
         rotate(432deg + 144deg * $i / 20);
     }
   }
 
   60% {
-    transform: translate(-100%, 0) rotate(576deg);
+    transform: translate(-147%, 0) rotate(576deg);
   }
 
   @for $i from 1 through 19 {
     $i-sq: $i / 20 * $i / 20;
     #{80% - $i * 1%} {
       transform:
-        translate(-50% - 50% * $i-sq, -50% + 50% * $i-sq)
+        translate(-73% - 74% * $i / 20, -50% + 50% * $i-sq)
         rotate(648deg - 72deg * $i / 20);
     }
   }
 
   80% {
-    transform: translate(-50%, -50%) rotate(648deg);
+    transform: translate(-73%, -50%) rotate(648deg);
   }
 
   @for $i from 1 through 19 {
     $i-sq: $i / 20 * $i / 20;
     #{80% + $i * 1%} {
       transform: 
-        translate(-50% + $i-sq * 50%, -50% + $i-sq * 50%)
+        translate(-73% + $i / 20 * 73%, -50% + $i-sq * 50%)
         rotate(648deg + 72deg * $i / 20);
     }
   }
