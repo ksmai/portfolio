@@ -2,10 +2,21 @@
   <md-card-title class="title">{{title}}</md-card-title>
   <md-card-subtitle class="subtitle">{{subtitle}}</md-card-subtitle>
   <md-card-content class="content">{{content}}</md-card-content>
+  <md-card-actions>
+    <button md-icon-button class="github-button"></button>
+  </md-card-actions>
 </md-card>
 
 <button md-raised-button color="primary" class="project-button">
   VIEW PROJECTS
+</button>
+
+<button md-raised-button color="warn" class="destroy-button">
+  DESTROY THIS PAGE
+</button>
+
+<button md-icon-button color="accent" class="skip-button">
+  <md-icon>skip_next</md-icon>
 </button>
 
 <div class="background">

@@ -5,10 +5,30 @@
   z-index: 1;
 }
 
+/* animation sequence */
+/*
+  1. javascript finishes typing words and add the class 'typing-finished'
+  2. .skip-button scales out
+  3. .background starts to "blast out"
+  4. .overlay starts to "fade in then out" on top of .background, lasting
+     slightly longer than background's transition
+  5. a scrim slides in under .card sometime during background's transition
+  6. .project-button slides in after background "blasting"
+  7. .github-button bounces in after background "blasting"
+  8. .destroy-button slides in after overlay "fading"
+  9. right before .destroy-button finishes sliding in, .project-button
+     starts a shaking animation
+*/
+
 $blast-time: 1.5s;
 $blast-ease: cubic-bezier(1, 0, 0, 1);
 $fade-time: $blast-time * 1.5;
 $ease-out: cubic-bezier(0, 0, .2, 1);
+$destroy-ease: cubic-bezier(.4, 0, .2, 2);
+$button-time: .25s;
+$shake-time: .5s;
+$shake-delay: $fade-time + $button-time - .1s;
+$bounce-time: 3s;
 
 .background {
   background: url("../../../assets/background.jpg") no-repeat left top;
@@ -41,14 +61,45 @@ $ease-out: cubic-bezier(0, 0, .2, 1);
   transition: background-size .15s $ease-out $blast-time / 2;
 }
 
+.destroy-button,
 .project-button {
   position: absolute;
-  bottom: 10%;
   left: 50%;
   z-index: 3;
   opacity: 0;
-  transition: all .25s $ease-out $blast-time;
   transform: translate(-50%, 100%);
+}
+
+.project-button {
+  bottom: 15%;
+  transition:
+    opacity $button-time $ease-out $blast-time,
+    transform $button-time $ease-out $blast-time;
+}
+
+.destroy-button {
+  bottom: calc(15% - 48px);
+  transition:
+    opacity $button-time $ease-out $fade-time,
+    transform $button-time $destroy-ease $fade-time;
+}
+
+.github-button {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  background: url("./../../../assets/github-32.png") no-repeat 8px 8px;
+  position: absolute;
+  top: 0;
+  right: 5%;
+  opacity: 0;
+}
+
+.skip-button {
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+  transition: transform .15s $ease-out;
 }
 
 .overlay {
@@ -65,20 +116,151 @@ $ease-out: cubic-bezier(0, 0, .2, 1);
   box-shadow: none;
 }
 
+/* overlay is brightest when blasting just finishes */
 @keyframes overlay {
-  0%, #{$blast-time / $fade-time * 30%} { opacity: 0; }
-  #{$blast-time / $fade-time * 100%} { opacity: .3; }
-  100% { opacity: 0; }
+  0%,
+  #{$blast-time / $fade-time * 30%} {
+    opacity: 0;
+  }
+
+  #{$blast-time / $fade-time * 100%} {
+    opacity: .3;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
+@keyframes shake-vertical {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+
+  50% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes shake-horizontal {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-25%, 0);
+  }
+}
+
+/*
+ * 0%   - highest point (-500%, -200%)
+ * 20%  - first landing point (-300%, 0)
+ * 40%  - second highest point (-200%, -100%)
+ * 60%  - second landing point (-100%, 0)
+ * 80%  - third highest point (-50%, -50%)
+ * 100% - final landing point (0, 0)
+ * other points are for
+ *  a) slowing down when going up
+ *  b) speeding up when going down
+ */
+@keyframes bouncing-ball {
+  0% {
+    opacity: 0;
+    transform: translate(-500%, -200%) rotate(0deg);
+  }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{$i * 1%} {
+      transform: 
+        translate(-500% + $i-sq * 200%, -200% + $i-sq * 200%)
+        rotate(288deg * $i / 20);
+    }
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(-300%, 0) rotate(288deg);
+  }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{40% - $i * 1%} {
+      transform:
+        translate(-200% - 100% * $i-sq, -100% + 100% * $i-sq)
+        rotate(432deg - 144deg * $i / 20);
+    }
+  }
+
+  40% {
+    transform: translate(-200%, -100%) rotate(432deg);
+  }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{40% + $i * 1%} {
+      transform: 
+        translate(-200% + $i-sq * 100%, -100% + $i-sq * 100%)
+        rotate(432deg + 144deg * $i / 20);
+    }
+  }
+
+  60% {
+    transform: translate(-100%, 0) rotate(576deg);
+  }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{80% - $i * 1%} {
+      transform:
+        translate(-50% - 50% * $i-sq, -50% + 50% * $i-sq)
+        rotate(648deg - 72deg * $i / 20);
+    }
+  }
+
+  80% {
+    transform: translate(-50%, -50%) rotate(648deg);
+  }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{80% + $i * 1%} {
+      transform: 
+        translate(-50% + $i-sq * 50%, -50% + $i-sq * 50%)
+        rotate(648deg + 72deg * $i / 20);
+    }
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(720deg);
+  }
+}
+
+/* animations and transition-end states */
 :host-context(.typing-finished) {
   .card {
     background-size: 100% 100%;
   }
 
+  .destroy-button,
   .project-button {
     opacity: 1;
     transform: translate(-50%, 0);
+  }
+
+  .project-button {
+    animation: shake-vertical $shake-time $shake-delay;
+  }
+
+  .skip-button {
+    transform: scale(0);
+  }
+
+  .github-button {
+    animation: bouncing-ball $bounce-time linear $blast-time forwards;
   }
 
   .background {
@@ -94,6 +276,12 @@ $ease-out: cubic-bezier(0, 0, .2, 1);
   }
 }
 
+/* Big screen */
+/*
+ * Larger font sizes
+ * Larger github button
+ * Horizontal project/destroy button
+ */
 @media (min-width: 769px) {
   .title {
     font-size: 36px;
@@ -104,5 +292,36 @@ $ease-out: cubic-bezier(0, 0, .2, 1);
   .subtitle {
     font-size: 21px;
     font-weight: bold;
+  }
+
+  .project-button {
+    bottom: 10%;
+    left: auto;
+    right: 52%;
+    transform: translate(0, 100%);
+  }
+
+  .destroy-button {
+    bottom: 10%;
+    left: 52%;
+    right: auto;
+    transform: translate(100%, 0);
+  }
+
+  .github-button {
+    width: 96px;
+    height: 96px;
+    background: url("./../../../assets/github-64.png") no-repeat 16px 16px;
+  }
+
+  :host-context(.typing-finished) {
+    .project-button,
+    .destroy-button {
+      transform: translate(0, 0);
+    }
+
+    .project-button {
+      animation: shake-horizontal $shake-time $shake-delay;
+    }
   }
 }
