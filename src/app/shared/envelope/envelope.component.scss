@@ -19,7 +19,7 @@ $border: 5px solid #888;
   background-color: $background-color;
   border: $border;
   border-radius: 10px;
-  perspective: 200px;
+  perspective: 1200px;
 }
 
 .content {
@@ -28,6 +28,7 @@ $border: 5px solid #888;
   position: absolute;
   bottom: 56%;
   left: 5%;
+  transform-origin: bottom center;
 }
 
 .bottom,
@@ -108,5 +109,100 @@ $border: 5px solid #888;
     border-bottom-right-radius: 20px;
     bottom: 14%;
     left: 0;
+  }
+}
+
+/* animations for closing envelope */
+$slide-down-time: .7s;
+$fold-down-time: .6s;
+$fold-down-delay: $slide-down-time;
+$fly-away-time: 3s;
+$fly-away-delay: $fold-down-time + $fold-down-delay;
+:host-context(.closing) {
+  .content {
+    animation: slide-down $slide-down-time linear forwards;
+  }
+
+  .flap {
+    animation: fold-down $fold-down-time linear $fold-down-delay forwards;
+  }
+
+  .envelope {
+    animation: fly-away $fly-away-time linear $fly-away-delay forwards;
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    bottom: 56%;
+    transform: scaleY(1);
+  }
+
+  36% {
+    bottom: 0;
+    transform: scaleY(1);
+  }
+
+  100% {
+    bottom: 0;
+    transform: scaleY(0);
+  }
+}
+
+@keyframes fold-down {
+  0% {
+    transform: rotateX(180deg);
+  }
+
+  100% {
+    z-index: 1;
+    transform: rotateX(0deg);
+  }
+}
+
+@keyframes fly-away {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+
+  @for $i from 1 through 8 {
+    $move: -50% * $i / 8;
+    $scale: 1 - 1 / 3 * $i / 8;
+    $d: $i % 2 * 6 * ($i % 4 - 2);
+    #{$i * 15 / 8}% {
+      transform: translate($move, $move) scale($scale) rotate(#{$d}deg);
+    }
+  }
+
+  33.33333% {
+    transform: translate(-50%, -50%) scale(.66667) rotate(0deg);
+  }
+
+  @for $i from 1 through 8 {
+    $move-x: -50% + 100% * $i / 8;
+    $move-y: -50% - 50% * $i / 8;
+    $scale: 2 / 3 - 1 / 3 * $i / 8;
+    $d: $i % 2 * 9 * ($i % 4 - 2);
+    #{$i * 20 / 8 + 100 / 3}% {
+      transform: translate($move-x, $move-y) scale($scale) rotate(#{$d}deg);
+    }
+  }
+
+  66.66666% {
+    transform: translate(50%, -100%) scale(.33333) rotate(0deg);
+  }
+
+  @for $i from 1 through 8 {
+    $move-x: 50% - 50% * $i / 8;
+    $move-y: -100% - 50% * $i / 8;
+    $scale: 1 / 3 - 1 / 3 * $i / 8;
+    $d: $i % 2 * 12 * ($i % 4 - 2);
+    #{$i * 20 / 8 + 200 / 3}% {
+      transform: translate($move-x, $move-y) scale($scale) rotate(#{$d}deg);
+    }
+  }
+
+  100% {
+    transform: translate(0, -150%) scale(0) rotate(0deg);
   }
 }

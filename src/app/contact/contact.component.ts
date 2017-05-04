@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MdSnackBar } from '@angular/material';
 
 import { ContactService } from '../core/contact.service';
+import { EnvelopeComponent } from '../shared/envelope/envelope.component';
 
 @Component({
   selector: 'port-contact',
@@ -16,6 +17,7 @@ export class ContactComponent implements OnInit {
 
   private nameLimit = 128;
   private messageLimit = 1024;
+  @ViewChild(EnvelopeComponent) private envelope: EnvelopeComponent;
 
   private get nameLength() {
     return this.form.value.name ? this.form.value.name.length : 0;
@@ -103,6 +105,10 @@ export class ContactComponent implements OnInit {
 
   submitForm() {
     this.submitting = true;
+    this.envelope.close().then(() => {
+      this.submitted = false;
+      this.envelope.reopen();
+    });
     this.contactService
       .submitForm(this.form.value)
       .subscribe(

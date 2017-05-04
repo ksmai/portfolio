@@ -1,52 +1,52 @@
 <h2 class="subheading">Contact</h2>
 
-<port-envelope>
-<md-card class="card">
-  <form (ngSubmit)="submitForm()" [formGroup]="form">
-    <fieldset [disabled]="submitted">
-      <md-input-container>
-        <input type="text" mdInput formControlName="name" name="name">
-        <md-placeholder>Name</md-placeholder>
-        <md-error align="end">{{errors.name}}</md-error>
-        <md-hint align="end">{{hints.name}}</md-hint>
-      </md-input-container>
+<port-envelope class="envelope">
+  <md-card class="card">
+    <form (ngSubmit)="submitForm()" [formGroup]="form">
+      <fieldset [disabled]="submitted">
+        <md-input-container>
+          <input type="text" mdInput formControlName="name" name="name">
+          <md-placeholder>Name</md-placeholder>
+          <md-error align="end">{{errors.name}}</md-error>
+          <md-hint align="end">{{hints.name}}</md-hint>
+        </md-input-container>
 
-      <md-input-container>
-        <input type="email" mdInput formControlName="email" name="email">
-        <md-placeholder>Email</md-placeholder>
-        <md-error align="end">{{errors.email}}</md-error>
-      </md-input-container>
+        <md-input-container>
+          <input type="email" mdInput formControlName="email" name="email">
+          <md-placeholder>Email</md-placeholder>
+          <md-error align="end">{{errors.email}}</md-error>
+        </md-input-container>
 
-      <md-input-container>
-        <textarea
-          mdInput
-          formControlName="message"
-          name="message"
-          rows="5"
-        ></textarea>
-        <md-placeholder>Message</md-placeholder>
-        <md-error align="end">{{errors.message}}</md-error>
-        <md-hint align="end">{{hints.message}}</md-hint>
-      </md-input-container>
-    </fieldset>
+        <md-input-container>
+          <textarea
+            mdInput
+            formControlName="message"
+            name="message"
+            rows="5"
+          ></textarea>
+          <md-placeholder>Message</md-placeholder>
+          <md-error align="end">{{errors.message}}</md-error>
+          <md-hint align="end">{{hints.message}}</md-hint>
+        </md-input-container>
+      </fieldset>
 
-    <ng-container *ngIf="!submitting">
-      <button
-        type="submit"
-        md-button
-        [disabled]="form.status !== 'VALID' || submitted"
-      >SUBMIT</button>
+      <ng-container *ngIf="!submitting">
+        <button
+          type="submit"
+          md-button
+          [disabled]="form.status !== 'VALID' || submitted"
+        >SUBMIT</button>
 
-      <button
-        type="button"
-        md-button
-        (click)="resetForm()"
-        [disabled]="form.pristine || submitted"
-      >RESET</button>
-    </ng-container>
+        <button
+          type="button"
+          md-button
+          (click)="resetForm()"
+          [disabled]="form.pristine || submitted"
+        >RESET</button>
+      </ng-container>
 
-    <md-progress-bar mode="indeterminate" *ngIf="submitting">
-    </md-progress-bar>
-  </form>
-</md-card>
+      <md-progress-bar mode="indeterminate" *ngIf="submitting">
+      </md-progress-bar>
+    </form>
+  </md-card>
 </port-envelope>

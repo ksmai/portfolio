@@ -23,6 +23,24 @@ textarea {
   resize: none;
 }
 
+.envelope {
+  animation: scale-in .375s cubic-bezier(0, 0, .2, 1);
+}
+
+@keyframes scale-in {
+  0% {
+    transform: scale(0);
+  }
+
+  60% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 @media (min-width: 1001px) {
   .subheading {
     margin-bottom: 320px;
