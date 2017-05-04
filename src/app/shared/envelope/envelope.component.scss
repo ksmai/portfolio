@@ -1,0 +1,100 @@
+$background-color: #ccc;
+$border: 5px solid #888;
+
+:host {
+  display: block;
+  margin: 0 auto 100px;
+  position: relative;
+  width: 60vw;
+  height: 20vw;
+}
+
+.envelope {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: $background-color;
+  border: $border;
+  border-radius: 10px;
+}
+
+.content {
+  max-width: 90%;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+}
+
+.flap,
+.back {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  &:before,
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: $background-color;
+    height: 100%;
+    width: 100%;
+    pointer-events: initial;
+  }
+}
+
+.back {
+  &:before {
+    border-right: $border;
+    top: 0;
+    left: -70%;
+    transform: skewX(60deg);
+  }
+
+  &:after {
+    border-left: $border;
+    top: 0;
+    right: -70%;
+    transform: skewX(-60deg);
+  }
+}
+
+.flap {
+  &:before {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 100%;
+    transform: rotate(45deg) skew(-25deg, -25deg);
+    border-left: $border;
+    border-top: $border;
+    border-top-left-radius: 20px;
+    top: 0;
+    left: 0;
+  }
+
+  &:after {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 100%;
+    transform: rotate(45deg) skew(-20deg, -20deg);
+    border-right: $border;
+    border-bottom: $border;
+    border-bottom-right-radius: 20px;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+@media (min-width: 1001px) {
+  :host {
+    width: 600px;
+    height: 200px;
+  }
+}

@@ -5,6 +5,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { GridScaleInDirective } from './grid-scale-in.directive';
 import { MaterialModule } from './material.module';
 import { TypeItDirective } from './type-it.directive';
+import { EnvelopeComponent } from './envelope/envelope.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { TypeItDirective } from './type-it.directive';
     TypeItDirective,
     DialogComponent,
     GridScaleInDirective,
+    EnvelopeComponent,
   ],
 
   entryComponents: [
@@ -27,6 +29,7 @@ import { TypeItDirective } from './type-it.directive';
     MaterialModule,
     TypeItDirective,
     GridScaleInDirective,
+    EnvelopeComponent,
   ],
 })
 export class SharedModule {

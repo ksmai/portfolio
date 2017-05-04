@@ -7,7 +7,7 @@ import { ContactService } from '../core/contact.service';
 @Component({
   selector: 'port-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss'],
+  styleUrls: ['./contact.component.scss', '../shared/subheading.scss'],
 })
 export class ContactComponent implements OnInit {
   form: FormGroup;

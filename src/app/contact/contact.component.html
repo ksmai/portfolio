@@ -1,3 +1,6 @@
+<h2 class="subheading">Contact</h2>
+
+<port-envelope>
 <md-card class="card">
   <form (ngSubmit)="submitForm()" [formGroup]="form">
     <md-input-container>
@@ -18,9 +21,7 @@
         mdInput
         formControlName="message"
         name="message"
-        mdTextareaAutosize
-        [mdAutosizeMinRows]="3"
-        [mdAutosizeMaxRows]="10"
+        rows="5"
       ></textarea>
       <md-placeholder>Message</md-placeholder>
       <md-error align="end">{{errors.message}}</md-error>
@@ -46,3 +47,4 @@
     </md-progress-bar>
   </form>
 </md-card>
+</port-envelope>

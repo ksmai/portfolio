@@ -10,6 +10,7 @@
     *ngFor="let project of projects"
     class="tile"
     (click)="showProject($event, project)"
+    title="Click for details"
   >
     <img
       class="thumbnail"
@@ -27,7 +28,7 @@
           selected="true"
           class="tech"
         >
-          {{tech}}
+          {{tech|uppercase}}
         </md-chip>
       </md-chip-list>
 
@@ -37,6 +38,7 @@
           color="accent"
           selected="true"
           class="collaborator"
+          title="See Github profile"
         >
           <a
             [href]="'https://github.com/' + collaborator.github"

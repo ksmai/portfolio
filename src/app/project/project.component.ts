@@ -8,7 +8,7 @@ import { DialogComponent } from '../shared/dialog/dialog.component';
 @Component({
   selector: 'port-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss'],
+  styleUrls: ['./project.component.scss', '../shared/subheading.scss'],
 })
 export class ProjectComponent implements OnInit {
   projects: Project[] = [];
