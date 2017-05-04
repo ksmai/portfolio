@@ -7,11 +7,12 @@ import { ContactService } from '../core/contact.service';
 @Component({
   selector: 'port-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss', '../shared/subheading.scss'],
+  styleUrls: ['../shared/subheading.scss', './contact.component.scss'],
 })
 export class ContactComponent implements OnInit {
   form: FormGroup;
   submitting = false;
+  submitted = false;
 
   private nameLimit = 128;
   private messageLimit = 1024;
@@ -112,6 +113,7 @@ export class ContactComponent implements OnInit {
 
   submitSuccess() {
     this.submitting = false;
+    this.submitted = true;
     this.snackbar.open('Thank you for your message', null, {
       duration: 2000,
     });

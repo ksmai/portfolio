@@ -5,6 +5,14 @@
   margin: auto;
 }
 
+.subheading {
+  margin-bottom: calc(400px - 8vw);
+}
+
+.card {
+  text-align: center;
+}
+
 md-input-container,
 input,
 textarea {
@@ -13,4 +21,10 @@ textarea {
 
 textarea {
   resize: none;
+}
+
+@media (min-width: 1001px) {
+  .subheading {
+    margin-bottom: 320px;
+  }
 }
