@@ -1,6 +1,11 @@
 <h2 class="subheading">Projects</h2>
 
-<md-grid-list [cols]="cols" [gutterSize]="20" rowHeight="1535:876">
+<md-grid-list
+  [cols]="cols"
+  [gutterSize]="20"
+  rowHeight="1535:876"
+  portGridScaleIn="visible-tile"
+>
   <md-grid-tile
     *ngFor="let project of projects"
     class="tile"
