@@ -13,7 +13,7 @@ const MAIN = path.join(SRC, 'main.ts');
 const POLYFILLS = path.join(SRC, 'polyfills');
 const TSCONFIG = path.join(__dirname, 'tsconfig.json');
 const APP_MODULE = path.join(APP, 'app.module') + '#AppModule';
-const FAVICON = path.join(__dirname, 'assets', 'favicon.png');
+const FAVICON = path.join(__dirname, 'assets', 'favicon.svg');
 
 module.exports = {
   devtool: 'source-map',
