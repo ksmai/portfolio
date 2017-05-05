@@ -1,5 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 
+import { ScrollService } from '../core/scroll.service';
+
 @Component({
   selector: 'port-navbar',
   templateUrl: './navbar.component.html',
@@ -12,17 +14,23 @@ export class NavbarComponent implements OnInit {
   private wait = true;
   private timer: any;
 
+  constructor(private scrollService: ScrollService) {
+  }
+
   ngOnInit() {
     setTimeout(() => this.wait = false, 15000);
   }
 
   scrollToAbout() {
+    this.scrollService.scrollToAbout();
   }
 
   scrollToProjects() {
+    this.scrollService.scrollToProjects();
   }
 
   scrollToContact() {
+    this.scrollService.scrollToContact();
   }
 
   resetTimer() {
@@ -32,7 +40,7 @@ export class NavbarComponent implements OnInit {
 
   @HostListener('window:scroll')
   private onScroll() {
-    if (this.wait) {
+    if (this.wait && window.scrollY < window.innerHeight) {
       return;
     }
 

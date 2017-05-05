@@ -3,6 +3,7 @@ import { HttpModule } from '@angular/http';
 
 import { ContactService } from './contact.service';
 import { ProjectService } from './project.service';
+import { ScrollService } from './scroll.service';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { ProjectService } from './project.service';
   providers: [
     ContactService,
     ProjectService,
+    ScrollService,
   ],
 })
 export class CoreModule {

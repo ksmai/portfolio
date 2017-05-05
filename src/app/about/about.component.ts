@@ -5,6 +5,8 @@ import {
   ViewChild,
 } from '@angular/core';
 
+import { ScrollService } from '../core/scroll.service';
+
 @Component({
   selector: 'port-about',
   templateUrl: './about.component.html',
@@ -18,6 +20,9 @@ export class AboutComponent implements AfterViewInit {
   @ViewChild('card') card: any;
   @HostBinding('class.typing-finished') typingFinished = false;
 
+  constructor(private scrollService: ScrollService) {
+  }
+
   ngAfterViewInit() {
     new Promise((resolve) => setTimeout(resolve, 300))
       .then(() => this.card.startTypeIt())
@@ -25,8 +30,10 @@ export class AboutComponent implements AfterViewInit {
   }
 
   destroyPage(): void {
+    this.scrollService.scrollToContact();
   }
 
   viewProjects(): void {
+    this.scrollService.scrollToProjects();
   }
 }
