@@ -12,6 +12,9 @@ export class DialogComponent {
   positive: string;
   positiveLink: string;
   negativeLink: string;
+  requireInput: boolean;
+  input: string = '';
+  placeholder: string;
 
   constructor(
     private dialogRef: MdDialogRef<DialogComponent>,
@@ -23,10 +26,12 @@ export class DialogComponent {
     this.positive = data.positive || 'YES';
     this.positiveLink = data.positiveLink || '';
     this.negativeLink = data.negativeLink || '';
+    this.requireInput = !!data.requireInput;
+    this.placeholder = data.placeholder;
   }
 
   accept() {
-    this.dialogRef.close(true);
+    this.dialogRef.close(this.requireInput ? this.input : true);
   }
 
   reject() {

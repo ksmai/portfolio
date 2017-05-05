@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { DialogComponent } from './dialog/dialog.component';
 import { EnvelopeComponent } from './envelope/envelope.component';
@@ -11,6 +12,7 @@ import { TypeItDirective } from './type-it.directive';
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
   ],
 
   declarations: [

@@ -1,5 +1,25 @@
 <h1 md-dialog-title>{{title}}</h1>
-<p md-dialog-content>{{content}}</p>
+
+<form
+  (ngSubmit)="accept()"
+  md-dialog-content
+  *ngIf="requireInput; else textContent"
+>
+  <md-input-container>
+    <textarea
+      name="userinput"
+      [(ngModel)]="input"
+      mdInput
+      rows="3"
+    ></textarea>
+    <md-placeholder>{{placeholder}}</md-placeholder>
+  </md-input-container>
+</form>
+
+<ng-template #textContent>
+  <p md-dialog-content>{{content}}</p>
+</ng-template>
+
 <div md-dialog-actions align="end">
   <ng-container *ngIf="negativeLink; else rejectButton">
     <a md-button [href]="negativeLink" target="_new">{{negative}}</a>

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MdSnackBar } from '@angular/material';
+import { MdInputDirective, MdSnackBar } from '@angular/material';
 
 import { ContactService } from '../core/contact.service';
 import { EnvelopeComponent } from '../shared/envelope/envelope.component';
@@ -131,5 +131,9 @@ export class ContactComponent implements OnInit {
       .open('Unable to submit', 'RETRY', { duration: 2000 })
       .onAction()
       .subscribe(() => this.submitForm());
+  }
+
+  setMessage(message: string) {
+    this.form.patchValue({ message });
   }
 }
