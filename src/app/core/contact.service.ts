@@ -4,9 +4,11 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ContactService {
+  subject = new Subject<string>();
   url = 'https://docs.google.com/forms/d/e/1FAIpQLSdH2ySDVs5uSC7--IKzend0jSUXs5URadyQDtM6epqZPTMfLA/formResponse';
 
   constructor(private http: Http) {
@@ -28,5 +30,13 @@ export class ContactService {
           Observable.of(error) :
           Observable.throw(error),
       );
+  }
+
+  getMessages() {
+    return this.subject;
+  }
+
+  setMessage(message: string) {
+    this.subject.next(message);
   }
 }

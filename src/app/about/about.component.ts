@@ -1,13 +1,12 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   HostBinding,
-  Output,
   ViewChild,
 } from '@angular/core';
 import { MdDialog } from '@angular/material';
 
+import { ContactService } from '../core/contact.service';
 import { ScrollService } from '../core/scroll.service';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 
@@ -21,13 +20,13 @@ export class AboutComponent implements AfterViewInit {
   subtitle = 'Aspiring web developer';
   content = 'Building responsive, interactive and scalable full-stack applications';
 
-  @Output() destroy = new EventEmitter<string>();
   @ViewChild('card') card: any;
   @HostBinding('class.typing-finished') typingFinished = false;
 
   constructor(
     private scrollService: ScrollService,
     private dialog: MdDialog,
+    private contactService: ContactService,
   ) {
   }
 
@@ -51,7 +50,9 @@ export class AboutComponent implements AfterViewInit {
       .afterClosed()
       .subscribe((message: boolean|string) => {
         if (typeof message === 'string') {
-          this.destroy.emit(message);
+          this.contactService.setMessage(
+            `Hello!\n\nI'd like to destroy your portfolio because\n${message}`,
+          );
           this.scrollService.scrollToContact();
         }
       });

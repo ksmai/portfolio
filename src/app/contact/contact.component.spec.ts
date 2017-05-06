@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ContactService } from '../core/contact.service';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { ContactComponent } from './contact.component';
@@ -98,9 +99,10 @@ describe('ContactComponent', () => {
     expect(page.nameInput.nativeElement.value).toBeFalsy();
   });
 
-  it('should expose a setMessage method', () => {
-    component.setMessage('abc');
+  it('should listen to new messages from ContactService', () => {
+    const message = 'xyzzzz';
+    TestBed.get(ContactService).setMessage(message);
     fixture.detectChanges();
-    expect(page.messageInput.nativeElement.value).toBe('abc');
+    expect(page.messageInput.nativeElement.value).toBe(message);
   });
 });

@@ -11,6 +11,7 @@ import { By } from '@angular/platform-browser';
 import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 
+import { ContactService } from '../core/contact.service';
 import { CoreModule } from '../core/core.module';
 import { ScrollService } from '../core/scroll.service';
 import { SharedModule } from '../shared/shared.module';
@@ -24,6 +25,7 @@ class Page {
   dialogSpy: jasmine.Spy;
   projectSpy: jasmine.Spy;
   contactSpy: jasmine.Spy;
+  messageSpy: jasmine.Spy;
 
   skipButton: DebugElement;
   projectButton: DebugElement;
@@ -34,6 +36,7 @@ class Page {
     const scrollService = TestBed.get(ScrollService);
     this.projectSpy = spyOn(scrollService, 'scrollToProjects');
     this.contactSpy = spyOn(scrollService, 'scrollToContact');
+    this.messageSpy = spyOn(TestBed.get(ContactService), 'setMessage');
     this.dialogSpy = spyOn(TestBed.get(MdDialog), 'open')
       .and.returnValue({ afterClosed() { return Observable.of('abc'); } });
   }
@@ -91,6 +94,7 @@ describe('AboutComponent', () => {
     page.destroyButton.nativeElement.click();
     expect(page.dialogSpy).toHaveBeenCalled();
     expect(page.contactSpy).toHaveBeenCalled();
+    expect(page.messageSpy).toHaveBeenCalled();
   });
 
   it('should have a link to github', () => {

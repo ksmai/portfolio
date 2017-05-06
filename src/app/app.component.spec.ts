@@ -45,9 +45,7 @@ class MockNavbarComponent { }
 class MockProjectComponent { }
 
 @Component({ selector: 'port-contact', template: '' })
-class MockContactComponent {
-  setMessage = jasmine.createSpy('setMessage');
-}
+class MockContactComponent { }
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -70,22 +68,5 @@ describe('AppComponent', () => {
     expect(page.contact).toBeDefined();
     expect(page.projects).toBeDefined();
     expect(page.navbar).toBeDefined();
-  });
-
-  it('should forward the destroy message to contact component', () => {
-    const contactComponent = fixture
-      .debugElement
-      .query(By.directive(MockContactComponent))
-      .injector
-      .get(MockContactComponent);
-    (component as any).contactComponent = contactComponent;
-
-    const msg = 'My message';
-    component.destroy(msg);
-
-    expect(contactComponent.setMessage).toHaveBeenCalled();
-    const arg = contactComponent.setMessage.calls.mostRecent().args[0];
-    expect(arg).toMatch(/because/i);
-    expect(arg).toContain(msg);
   });
 });

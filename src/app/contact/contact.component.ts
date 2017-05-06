@@ -89,6 +89,11 @@ export class ContactComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.contactService
+      .getMessages()
+      .subscribe((message: string) => {
+        this.form.patchValue({ message });
+      });
   }
 
   createForm() {
@@ -131,9 +136,5 @@ export class ContactComponent implements OnInit {
       .open('Unable to submit', 'RETRY', { duration: 2000 })
       .onAction()
       .subscribe(() => this.submitForm());
-  }
-
-  setMessage(message: string) {
-    this.form.patchValue({ message });
   }
 }

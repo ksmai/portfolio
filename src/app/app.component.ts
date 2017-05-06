@@ -1,6 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-
-import { ContactComponent } from './contact/contact.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'port-app',
@@ -8,11 +6,4 @@ import { ContactComponent } from './contact/contact.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  @ViewChild(ContactComponent) private contactComponent: ContactComponent;
-
-  destroy(message: string) {
-    this.contactComponent.setMessage(
-      `Hello!\n\nI'd like to destroy your webpage because ${message}`,
-    );
-  }
 }

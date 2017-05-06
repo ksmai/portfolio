@@ -55,4 +55,13 @@ describe('ContactService', () => {
     expect(lastConnection.request.headers.get('Content-Type'))
       .toMatch(/application\/x-www-form-urlencoded/);
   });
+
+  it('should maintain a stream of messages', (done) => {
+    const message = 'my message';
+    contactService.getMessages().subscribe((msg: string) => {
+      expect(msg).toBe(message);
+      done();
+    });
+    contactService.setMessage(message);
+  });
 });
