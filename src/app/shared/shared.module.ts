@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { DialogComponent } from './dialog/dialog.component';
-import { EnvelopeComponent } from './envelope/envelope.component';
 import { GridScaleInDirective } from './grid-scale-in.directive';
 import { MaterialModule } from './material.module';
 import { TypeItDirective } from './type-it.directive';
@@ -19,7 +18,6 @@ import { TypeItDirective } from './type-it.directive';
     TypeItDirective,
     DialogComponent,
     GridScaleInDirective,
-    EnvelopeComponent,
   ],
 
   entryComponents: [
@@ -31,7 +29,6 @@ import { TypeItDirective } from './type-it.directive';
     MaterialModule,
     TypeItDirective,
     GridScaleInDirective,
-    EnvelopeComponent,
   ],
 })
 export class SharedModule {

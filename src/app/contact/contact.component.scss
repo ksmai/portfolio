@@ -5,12 +5,12 @@
   margin: auto;
 }
 
-.subheading {
-  margin-bottom: calc(400px - 8vw);
-}
-
 .card {
-  text-align: center;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  transform-origin: center top;
+  animation: slide-down .25s cubic-bezier(.4, 0, .6, 1);
 }
 
 md-input-container,
@@ -20,11 +20,15 @@ textarea {
 }
 
 textarea {
-  resize: none;
+  resize: vertical;
 }
 
-@media (min-width: 1001px) {
-  .subheading {
-    margin-bottom: 320px;
+@keyframes slide-down {
+  0% {
+    transform: scaleY(0);
+  }
+
+  100% {
+    transform: scaleY(1);
   }
 }

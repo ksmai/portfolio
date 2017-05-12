@@ -18,14 +18,11 @@ class Page {
   emailInput: DebugElement;
   messageInput: DebugElement;
   submitButton: DebugElement;
-  resetButton: DebugElement;
 
   submitSpy: jasmine.Spy;
-  resetSpy: jasmine.Spy;
 
   constructor() {
     this.submitSpy = spyOn(component, 'submitForm');
-    this.resetSpy = spyOn(component, 'resetForm').and.callThrough();
   }
 
   createElements() {
@@ -34,8 +31,6 @@ class Page {
     this.messageInput = fixture.debugElement.query(By.css('textarea'));
     this.submitButton = fixture.debugElement
       .query(By.css('[type="submit"]'));
-    this.resetButton = fixture.debugElement
-      .query(By.css('[type="button"]'));
   }
 
   fillForm(name: string, email: string, message: string) {
@@ -89,14 +84,6 @@ describe('ContactComponent', () => {
     page.fillForm('abc', 'a@b.c', '123');
     page.submitButton.nativeElement.click();
     expect(page.submitSpy).toHaveBeenCalled();
-  });
-
-  it('should reset form', () => {
-    page.fillForm('abc', 'a@b.c', '123');
-    expect(page.nameInput.nativeElement.value).toBe('abc');
-    page.resetButton.nativeElement.click();
-    expect(page.resetSpy).toHaveBeenCalled();
-    expect(page.nameInput.nativeElement.value).toBeFalsy();
   });
 
   it('should listen to new messages from ContactService', () => {

@@ -19,8 +19,8 @@ import { DialogComponent } from '../shared/dialog/dialog.component';
 })
 export class AboutComponent implements AfterViewInit {
   title = 'K. S. Mai';
-  subtitle = 'Aspiring web developer';
-  content = 'Building responsive, interactive and scalable full-stack applications';
+  subtitle = 'Full stack web developer';
+  content = 'Building responsive, robust and reliable web applications';
 
   @ViewChild('card') card: any;
   @HostBinding('class.typing-finished') typingFinished = false;

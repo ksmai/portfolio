@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MdInputDirective, MdSnackBar } from '@angular/material';
 
 import { ContactService } from '../core/contact.service';
-import { EnvelopeComponent } from '../shared/envelope/envelope.component';
 
 @Component({
   selector: 'port-contact',
@@ -13,11 +12,9 @@ import { EnvelopeComponent } from '../shared/envelope/envelope.component';
 export class ContactComponent implements OnInit {
   form: FormGroup;
   submitting = false;
-  submitted = false;
 
   private nameLimit = 128;
   private messageLimit = 1024;
-  @ViewChild(EnvelopeComponent) private envelope: EnvelopeComponent;
 
   private get nameLength() {
     return this.form.value.name ? this.form.value.name.length : 0;
@@ -104,18 +101,11 @@ export class ContactComponent implements OnInit {
     });
   }
 
-  resetForm() {
-    this.form.reset();
-  }
-
   submitForm() {
     this.submitting = true;
-    this.envelope.close().then(() => {
-      this.submitted = false;
-      this.envelope.reopen();
-    });
     this.contactService
       .submitForm(this.form.value)
+      .finally(() => this.submitting = false)
       .subscribe(
         () => this.submitSuccess(),
         () => this.submitFailure(),
@@ -123,15 +113,14 @@ export class ContactComponent implements OnInit {
   }
 
   submitSuccess() {
-    this.submitting = false;
-    this.submitted = true;
+    this.form = null;
+    setTimeout(() => this.createForm(), 0);
     this.snackbar.open('Thank you for your message', null, {
       duration: 2000,
     });
   }
 
   submitFailure() {
-    this.submitting = false;
     this.snackbar
       .open('Unable to submit', 'RETRY', { duration: 2000 })
       .onAction()

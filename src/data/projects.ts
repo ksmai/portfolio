@@ -12,11 +12,14 @@ const votingApp = require('../../assets/thumbnails/voting-app.png');
 export const projects: Project[] = [
   {
     name: 'Pinterest clone',
-    description: 'A clone of Pinterest for sharing images with ease. Users can sign in with Twitter.',
+    description: 'A simple image sharing application',
     technology: [
       'Angular 4',
       'express',
       'mongoDB',
+    ],
+    integrations: [
+      'Twitter',
     ],
     github: 'https://github.com/ksmai/pinterest-clone',
     url: 'https://ksmai-pinterest.herokuapp.com/',
@@ -24,11 +27,14 @@ export const projects: Project[] = [
   },
   {
     name: 'Book trading app',
-    description: 'A platform for users to connect and trade books with one another. Book data are obtained using Google Books API.',
+    description: 'A platform for users to connect and trade books with one another',
     technology: [
       'Angular 4',
       'express',
       'mongoDB',
+    ],
+    integrations: [
+      'Google Books',
     ],
     github: 'https://github.com/ksmai/trade-book',
     url: 'https://ksmai-book-trading.herokuapp.com/',
@@ -36,7 +42,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Captain Million',
-    description: 'A simple but effective web-based warehouse management application.',
+    description: 'An effective web-based warehouse management application',
     technology: [
       'express',
       'graphQL',
@@ -54,7 +60,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Impulse',
-    description: 'A Chrome extension that provides an inspiring new-tab page aimming at improving productivity. Utilities include todo list, weather infomation, quote machine, etc. An iteration of Momentum.',
+    description: 'A Chrome extension providing an inspiring new-tab page for boosting productivity',
     technology: [
       'react',
     ],
@@ -69,10 +75,14 @@ export const projects: Project[] = [
   },
   {
     name: 'Stock market',
-    description: 'Chart the stock market based on a user-selected portfolio. Data are synchronized across clients using web sockets. Real-time stock quotes are provided by Yahoo.',
+    description: 'Chart the stock market based on a user-selected portfolio',
     technology: [
       'angularJS',
       'ws',
+    ],
+    integrations: [
+      'Google Chart',
+      'Yahoo',
     ],
     github: 'https://github.com/ksmai/watch-stock',
     url: 'https://ks-stock-watcher.herokuapp.com',
@@ -80,11 +90,16 @@ export const projects: Project[] = [
   },
   {
     name: 'Nightlife',
-    description: 'Coordinate nightlife by letting users to indicate their choices of restaurants every night. Decisions can be easily made in advance based on the relative crowdiness of the places. Location-based restaurant search provided by Yelp API. Integrated with Facebook and Twitter.',
+    description: 'Coordinate nightlife activities by collecting choices from other users',
     technology: [
       'angularJS',
       'express',
       'mongoDB',
+    ],
+    integrations: [
+      'Facebook',
+      'Twitter',
+      'Yelp',
     ],
     github: 'https://github.com/ksmai/nightlife',
     url: 'https://ksmai-nightlife.herokuapp.com',
@@ -92,11 +107,17 @@ export const projects: Project[] = [
   },
   {
     name: 'Voting app',
-    description: 'A web application for users to create polls, cast votes, view statistics and more. Allow login from Facebook, Twitter and Github accounts. Data are visualized with Google Chart.',
+    description: 'A web application for users to create polls, cast votes, view statistics and more',
     technology: [
       'angularJS',
       'express',
       'mongoDB',
+    ],
+    integrations: [
+      'Facebook',
+      'Twitter',
+      'Github',
+      'Google Chart',
     ],
     github: 'https://github.com/ksmai/voting-app',
     url: 'https://ks-voting-app.herokuapp.com/',
