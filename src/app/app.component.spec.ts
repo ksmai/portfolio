@@ -12,14 +12,12 @@ let page: Page;
 class Page {
   about: DebugElement;
   contact: DebugElement;
-  navbar: DebugElement;
   projects: DebugElement;
 
   createElements(): void {
     this.about = fixture.debugElement.query(By.css('#about'));
     this.projects = fixture.debugElement.query(By.css('#projects'));
     this.contact = fixture.debugElement.query(By.css('#contact'));
-    this.navbar = fixture.debugElement.query(By.css('port-navbar'));
   }
 }
 
@@ -38,9 +36,6 @@ function createAppComponent(): Promise<any> {
 @Component({ selector: 'port-about', template: '' })
 class MockAboutComponent { }
 
-@Component({ selector: 'port-navbar', template: '' })
-class MockNavbarComponent { }
-
 @Component({ selector: 'port-project', template: '' })
 class MockProjectComponent { }
 
@@ -54,7 +49,6 @@ describe('AppComponent', () => {
         declarations: [
           AppComponent,
           MockAboutComponent,
-          MockNavbarComponent,
           MockContactComponent,
           MockProjectComponent,
         ],
@@ -67,6 +61,5 @@ describe('AppComponent', () => {
     expect(page.about).toBeDefined();
     expect(page.contact).toBeDefined();
     expect(page.projects).toBeDefined();
-    expect(page.navbar).toBeDefined();
   });
 });
