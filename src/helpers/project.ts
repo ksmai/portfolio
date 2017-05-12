@@ -9,4 +9,5 @@ export class Project {
   url: string;
   thumbnail: string;
   collaborators?: Collaborator[];
+  showInfo?: boolean;
 }

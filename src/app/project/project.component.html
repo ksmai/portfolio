@@ -9,8 +9,8 @@
   <md-grid-tile
     *ngFor="let project of projects"
     class="tile"
+    [class.flip]="project.showInfo"
     (click)="showProject($event, project)"
-    title="Click for details"
   >
     <img
       class="thumbnail"
@@ -18,34 +18,36 @@
       [alt]="project.name"
     >
 
-    <div class="info">
-      <h3 class="title">{{project.name}}</h3>
+    <md-card class="info">
+      <md-card-title>{{project.name}}</md-card-title>
+      <md-card-subtitle>{{project.description}}</md-card-subtitle>
 
-      <md-chip-list class="technology">
-        <md-chip
-          *ngFor="let tech of project.technology"
-          color="primary"
-          selected="true"
-          class="tech"
-        >
-          {{tech|uppercase}}
-        </md-chip>
-      </md-chip-list>
+      <md-card-content>
+        <md-chip-list>
+          <md-chip
+            class="technology"
+            *ngFor="let tech of project.technology"
+            color="primary"
+            selected="true"
+          >{{tech|uppercase}}</md-chip>
+        </md-chip-list>
+      </md-card-content>
 
-      <md-chip-list class="collaborators">
-        <md-chip
-          *ngFor="let collaborator of project.collaborators"
-          color="accent"
-          selected="true"
-          class="collaborator"
-          title="See Github profile"
-        >
-          <a
-            [href]="'https://github.com/' + collaborator.github"
-            target="_new"
-          >@{{collaborator.name}}</a>
-        </md-chip>
-      </md-chip-list>
-    </div>
+      <md-card-content>
+        <md-chip-list>
+          <md-chip
+            *ngFor="let integration of project.integrations"
+            class="integration"
+            color="accent"
+            selected="true"
+          >{{integration}}</md-chip>
+        </md-chip-list>
+      </md-card-content>
+
+      <md-card-actions align="end">
+        <a md-button [href]="project.github" target="_blank">SOURCE</a>
+        <a md-button [href]="project.url" target="_blank">DEMO</a>
+      </md-card-actions>
+    </md-card>
   </md-grid-tile>
 </md-grid-list>

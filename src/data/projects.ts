@@ -64,6 +64,9 @@ export const projects: Project[] = [
     technology: [
       'react',
     ],
+    integrations: [
+      'Chrome',
+    ],
     collaborators: [
       { name: 'Ethan Choi', github: 'ethanchoi812' },
       { name: 'Kamil', github: 'KamilCybulski' },
