@@ -1,4 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
+import 'rxjs/add/observable/zip';
+import { Observable } from 'rxjs/Observable';
 
 @Directive({
   selector: '[portTypeIt]',
@@ -10,6 +12,7 @@ export class TypeItDirective implements AfterViewInit {
   started = false;
 
   private lastTimestamp = Date.now();
+  private skipped = false;
   private textNodes: Text[] = [];
   private cursor = '_';
   private texts: string[];
@@ -40,8 +43,22 @@ export class TypeItDirective implements AfterViewInit {
       });
   }
 
+  skip(): void {
+    if (this.started) {
+      this.skipped = true;
+    }
+  }
+
   private typeIt(nodes: Text[], texts: string[], fps = 30): Promise<any> {
     if (texts.length === 0) {
+      return Promise.resolve();
+    }
+
+    if (this.skipped) {
+      Observable
+        .zip(Observable.from(nodes), Observable.from(texts))
+        .subscribe(([node, text]) => node.appendData(text));
+
       return Promise.resolve();
     }
 
@@ -84,7 +101,8 @@ export class TypeItDirective implements AfterViewInit {
     fps = 30,
     time = 0,
   ): Promise<any> {
-    if (time >= total * 2) {
+    const stop = time >= total * 2 || (this.skipped && time % 2 === 0);
+    if (stop) {
       return Promise.resolve();
     }
 
@@ -122,6 +140,8 @@ export class TypeItDirective implements AfterViewInit {
     return this.isTextNode(node) && !this.isEmptyTextNode(node as Text);
   }
 
+  // Given a non-text node, recursively get all nested text nodes
+  // that are not empty
   private getTextNodes(node: Node): Text[] {
     const textNodes = [];
 

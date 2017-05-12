@@ -61,4 +61,8 @@ export class AboutComponent implements AfterViewInit {
   viewProjects(): void {
     this.scrollService.scrollToProjects();
   }
+
+  skip(): void {
+    this.card.skip();
+  }
 }
