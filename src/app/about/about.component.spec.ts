@@ -13,8 +13,10 @@ import { Observable } from 'rxjs/Observable';
 
 import { ContactService } from '../core/contact.service';
 import { CoreModule } from '../core/core.module';
+import { DestroyerService } from '../core/destroyer.service';
 import { ScrollService } from '../core/scroll.service';
 import { SharedModule } from '../shared/shared.module';
+import { TypeItDirective } from '../shared/type-it.directive';
 import { AboutComponent } from './about.component';
 
 let fixture: ComponentFixture<AboutComponent>;
@@ -26,6 +28,8 @@ class Page {
   projectSpy: jasmine.Spy;
   contactSpy: jasmine.Spy;
   messageSpy: jasmine.Spy;
+  skipSpy: jasmine.Spy;
+  destroySpy: jasmine.Spy;
 
   skipButton: DebugElement;
   projectButton: DebugElement;
@@ -37,8 +41,18 @@ class Page {
     this.projectSpy = spyOn(scrollService, 'scrollToProjects');
     this.contactSpy = spyOn(scrollService, 'scrollToContact');
     this.messageSpy = spyOn(TestBed.get(ContactService), 'setMessage');
+    this.destroySpy = spyOn(TestBed.get(DestroyerService), 'destroy')
+      .and.callFake((el: any, observer: any) => observer.complete());
     this.dialogSpy = spyOn(TestBed.get(MdDialog), 'open')
       .and.returnValue({ afterClosed() { return Observable.of('abc'); } });
+    this.skipSpy = spyOn(
+      fixture
+        .debugElement
+        .query(By.directive(TypeItDirective))
+        .injector
+        .get(TypeItDirective),
+      'skip',
+    );
   }
 
   createElements() {
@@ -80,7 +94,7 @@ describe('AboutComponent', () => {
   it('should have a skip button', () => {
     expect(page.skipButton).toBeDefined();
     page.skipButton.nativeElement.click();
-    expect(page.projectSpy).toHaveBeenCalled();
+    expect(page.skipSpy).toHaveBeenCalled();
   });
 
   it('should have a project button', () => {
@@ -95,6 +109,7 @@ describe('AboutComponent', () => {
     expect(page.dialogSpy).toHaveBeenCalled();
     expect(page.contactSpy).toHaveBeenCalled();
     expect(page.messageSpy).toHaveBeenCalled();
+    expect(page.destroySpy).toHaveBeenCalled();
   });
 
   it('should have a link to github', () => {

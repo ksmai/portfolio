@@ -1,12 +1,14 @@
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   HostBinding,
   ViewChild,
 } from '@angular/core';
 import { MdDialog } from '@angular/material';
 
 import { ContactService } from '../core/contact.service';
+import { DestroyerService } from '../core/destroyer.service';
 import { ScrollService } from '../core/scroll.service';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 
@@ -27,6 +29,8 @@ export class AboutComponent implements AfterViewInit {
     private scrollService: ScrollService,
     private dialog: MdDialog,
     private contactService: ContactService,
+    private destroyer: DestroyerService,
+    private el: ElementRef,
   ) {
   }
 
@@ -51,9 +55,11 @@ export class AboutComponent implements AfterViewInit {
       .subscribe((message: boolean|string) => {
         if (typeof message === 'string') {
           this.contactService.setMessage(
-            `Hello!\n\nI'd like to destroy your portfolio because\n${message}`,
+            `Hello!\n\nI have destroyed your portfolio because\n${message}`,
           );
-          this.scrollService.scrollToContact();
+          this.destroyer.destroy(this.el, {
+            complete: () => this.scrollService.scrollToContact(),
+          });
         }
       });
   }
