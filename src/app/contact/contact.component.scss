@@ -10,6 +10,13 @@
   animation: slide-down .25s cubic-bezier(.4, 0, .6, 1);
 }
 
+.additional {
+  display: none;
+  background: none;
+  box-shadow: none !important;
+  padding-top: 0;
+}
+
 md-input-container,
 input,
 textarea {
@@ -27,5 +34,18 @@ textarea {
 
   100% {
     transform: scaleY(1);
+  }
+}
+
+@media (min-width: 801px) {
+  .card {
+    display: inline-block;
+    width: 50%;
+  }
+
+  .additional {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
   }
 }
