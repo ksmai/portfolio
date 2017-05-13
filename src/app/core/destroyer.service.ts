@@ -47,6 +47,7 @@ export class DestroyerService {
     div.style.top = this.randomPos();
     div.style.left = this.randomPos();
     div.style.transform = 'scale(0)';
+    div.style.pointerEvents = 'none';
     div.style.opacity = '1';
     setTimeout(() => {
       div.style.transform = 'scale(2)';
@@ -54,7 +55,8 @@ export class DestroyerService {
     }, 0);
 
     const time = this.randomTime(transitionTime);
-    div.style.transition = `all ${time}ms ease-in`;
+    div.style.transition = `transform ${time}ms ease-in,
+      opacity ${time * 1.3}ms ease-in-out`;
 
     const color = this.randomColor();
     for (let i = 0; i < 9; i++) {

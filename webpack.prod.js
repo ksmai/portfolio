@@ -85,12 +85,29 @@ module.exports = {
       },
       {
         test: /\.(?:png|jpe?g|svg|gif)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+            },
           },
-        },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              optipng: {
+                optimizationLevel: 7,
+              },
+              mozjpeg: {
+                quality: 30,
+              },
+              pngquant: {
+                quality: 50,
+                speed: 4,
+              },
+            },
+          },
+        ],
       },
     ],
   },
