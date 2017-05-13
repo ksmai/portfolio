@@ -1,0 +1,10 @@
+.project {
+  opacity: .5;
+}
+
+@media (min-width: 801px) {
+  .list .link {
+    display: inline-block;
+    width: 50%;
+  }
+}

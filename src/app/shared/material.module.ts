@@ -11,7 +11,6 @@ import {
   MdProgressBarModule,
   MdSnackBarModule,
   MdToolbarModule,
-  MdTooltipModule,
 } from '@angular/material';
 
 @NgModule({
@@ -20,7 +19,6 @@ import {
     MdInputModule,
     MdSnackBarModule,
     MdDialogModule,
-    MdTooltipModule,
     MdIconModule,
     MdButtonModule,
     MdCardModule,
@@ -34,7 +32,6 @@ import {
     MdInputModule,
     MdSnackBarModule,
     MdDialogModule,
-    MdTooltipModule,
     MdChipsModule,
     MdIconModule,
     MdButtonModule,

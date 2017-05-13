@@ -1,0 +1,19 @@
+<h2 class="subheading">Teammates</h2>
+
+<md-nav-list class="list">
+  <a
+    md-list-item
+    *ngFor="let teammate of teammates | async"
+    [href]="teammate[1].url || 'https://github.com/'+teammate[1].github"
+    target="_blank"
+    class="link"
+  >
+    <img
+      md-list-avatar
+      [src]="teammate[1].picture"
+      [alt]="teammate[1].name"
+    >
+    <h3 md-line>{{teammate[1].name}}</h3>
+    <h6 class="project" md-line>{{teammate[0]}}</h6>
+  </a>
+</md-nav-list>

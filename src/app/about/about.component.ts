@@ -57,6 +57,7 @@ export class AboutComponent implements AfterViewInit {
           this.contactService.setMessage(
             `Hello!\n\nI have destroyed your portfolio because\n${message}`,
           );
+          this.scrollService.scrollToAbout();
           this.destroyer.destroy(this.el, {
             complete: () => this.scrollService.scrollToContact(),
           });

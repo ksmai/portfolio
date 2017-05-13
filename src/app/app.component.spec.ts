@@ -13,11 +13,13 @@ class Page {
   about: DebugElement;
   contact: DebugElement;
   projects: DebugElement;
+  teammates: DebugElement;
 
   createElements(): void {
     this.about = fixture.debugElement.query(By.css('#about'));
     this.projects = fixture.debugElement.query(By.css('#projects'));
     this.contact = fixture.debugElement.query(By.css('#contact'));
+    this.teammates = fixture.debugElement.query(By.css('#team'));
   }
 }
 
@@ -42,6 +44,9 @@ class MockProjectComponent { }
 @Component({ selector: 'port-contact', template: '' })
 class MockContactComponent { }
 
+@Component({ selector: 'port-team', template: '' })
+class MockTeamComponent { }
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed
@@ -51,6 +56,7 @@ describe('AppComponent', () => {
           MockAboutComponent,
           MockContactComponent,
           MockProjectComponent,
+          MockTeamComponent,
         ],
       })
       .compileComponents()
@@ -61,5 +67,6 @@ describe('AppComponent', () => {
     expect(page.about).toBeDefined();
     expect(page.contact).toBeDefined();
     expect(page.projects).toBeDefined();
+    expect(page.teammates).toBeDefined();
   });
 });

@@ -22,4 +22,9 @@ describe('ScrollService', () => {
     scrollService.scrollToContact();
     expect(spy).toHaveBeenCalledWith('contact');
   });
+
+  it('should scroll to #team', () => {
+    scrollService.scrollToTeam();
+    expect(spy).toHaveBeenCalledWith('team');
+  });
 });
