@@ -34,7 +34,6 @@ $shake-delay: $fade-time + $button-time - .1s;
 $github-time: .5s;
 
 .background {
-  background: url("../../../assets/background.jpg") no-repeat left top;
   background-size: cover;
   background-attachment: fixed;
   position: absolute;
