@@ -3,10 +3,7 @@
   height: 100vh;
   position: relative;
   z-index: 1;
-  overflow: hidden;
 }
-
-$accent-color: #2e7d32;
 
 /* animation sequence */
 /*
@@ -17,7 +14,7 @@ $accent-color: #2e7d32;
      slightly longer than background's transition
   5. a scrim slides in under .card after background's transition
   6. .project-button slides in after background "blasting"
-  7. .github-button fades in after overlay "fading"
+  7. .github-button bounces in after background "blasting"
   8. .destroy-button slides in after overlay "fading"
   9. right before .destroy-button finishes sliding in, .project-button
      starts a shaking animation
@@ -31,7 +28,7 @@ $destroy-ease: cubic-bezier(.4, 0, .2, 2);
 $button-time: .25s;
 $shake-time: .5s;
 $shake-delay: $fade-time + $button-time - .1s;
-$github-time: .5s;
+$bounce-time: 3s;
 
 .background {
   background: url("../../../assets/background.jpg") no-repeat left top;
@@ -69,12 +66,10 @@ $github-time: .5s;
   z-index: 3;
   opacity: 0;
   transform: translate(-50%, 100%);
-  width: 175px;
-  font-size: 18.4px;
+  width: 180px;
 }
 
 .project-button {
-  background: hsl(199, 98%, 44%);
   bottom: 15%;
   transition:
     opacity $button-time $ease-out $blast-time,
@@ -82,7 +77,6 @@ $github-time: .5s;
 }
 
 .destroy-button {
-  background: hsl(13, 98%, 54%);
   bottom: calc(15% - 48px);
   transition:
     opacity $button-time $ease-out $fade-time,
@@ -91,39 +85,13 @@ $github-time: .5s;
 
 .github-button {
   display: inline-block;
-  color: #fff;
-  background-color: $accent-color;
-  z-index: 3;
   position: absolute;
-  top: 82.621891848px - 18px;
-  right: 82.621891848px - 98.845px;
   opacity: 0;
-  border-radius: 0;
-  border: none;
-  outline: none;
-  transform-origin: center;
-  transform: rotate(45deg) scaleX(0);
-
-  &:before,
-  &:after {
-    content: "";
-    width: 0;
-    height: 0;
-    display: block;
-    position: absolute;
-    bottom: 0;
-    border-bottom: 36px solid $accent-color;
-  }
-
-  &:before {
-    border-left: 36px solid transparent;
-    right: 100%;
-  }
-
-  &:after {
-    border-right: 36px solid transparent;
-    left: 100%;
-  }
+  width: 48px;
+  height: 48px;
+  background: url("./../../../assets/github-32.png") no-repeat 8px 8px;
+  top: 8px;
+  right: 24px;
 }
 
 .skip-button {
@@ -185,15 +153,88 @@ $github-time: .5s;
   }
 }
 
-@keyframes github-fade {
+/*
+ * 0%   - highest point (-500%, -200%)
+ * 20%  - first landing point (-355%, 0)
+ * 40%  - second highest point (-251%, -100%)
+ * 60%  - second landing point (-147%, 0)
+ * 80%  - third highest point (-73%, -50%)
+ * 100% - final landing point (0, 0)
+ * other points are for
+ *  a) slowing down when going up
+ *  b) speeding up when going down
+ */
+@keyframes bouncing-ball {
   0% {
     opacity: 0;
-    transform: perspective(999px) rotate(45deg) scaleX(0);
+    transform: translate(-500%, -200%) rotate(0deg);
   }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{$i * 1%} {
+      transform: 
+        translate(-500% + $i / 20 * 145%, -200% + $i-sq * 200%)
+        rotate(288deg * $i / 20);
+    }
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(-355%, 0) rotate(288deg);
+  }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{40% - $i * 1%} {
+      transform:
+        translate(-251% - 104% * $i / 20, -100% + 100% * $i-sq)
+        rotate(432deg - 144deg * $i / 20);
+    }
+  }
+
+  40% {
+    transform: translate(-251%, -100%) rotate(432deg);
+  }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{40% + $i * 1%} {
+      transform: 
+        translate(-251% + $i / 20 * 104%, -100% + $i-sq * 100%)
+        rotate(432deg + 144deg * $i / 20);
+    }
+  }
+
+  60% {
+    transform: translate(-147%, 0) rotate(576deg);
+  }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{80% - $i * 1%} {
+      transform:
+        translate(-73% - 74% * $i / 20, -50% + 50% * $i-sq)
+        rotate(648deg - 72deg * $i / 20);
+    }
+  }
+
+  80% {
+    transform: translate(-73%, -50%) rotate(648deg);
+  }
+
+  @for $i from 1 through 19 {
+    $i-sq: $i / 20 * $i / 20;
+    #{80% + $i * 1%} {
+      transform: 
+        translate(-73% + $i / 20 * 73%, -50% + $i-sq * 50%)
+        rotate(648deg + 72deg * $i / 20);
+    }
+ }
 
   100% {
     opacity: 1;
-    transform: perspective(999px) rotate(45deg) scaleX(1);
+    transform: translate(0, 0) rotate(720deg);
   }
 }
 
@@ -218,7 +259,7 @@ $github-time: .5s;
   }
 
   .github-button {
-    animation: github-fade $github-time linear $fade-time forwards;
+    animation: bouncing-ball $bounce-time linear $blast-time forwards;
   }
 
   .background {
@@ -237,6 +278,7 @@ $github-time: .5s;
 /* Big screen */
 /*
  * Larger font sizes
+ * Larger github button
  * Horizontal project/destroy button
  */
 @media (min-width: 769px) {
@@ -265,6 +307,13 @@ $github-time: .5s;
     right: auto;
     transform: translate(100%, 0);
     width: auto;
+  }
+
+  .github-button {
+    top: -20px;
+    width: 96px;
+    height: 96px;
+    background: url("./../../../assets/github-64.png") no-repeat 16px 16px;
   }
 
   :host-context(.typing-finished) {

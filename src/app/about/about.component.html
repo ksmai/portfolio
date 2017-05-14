@@ -2,28 +2,29 @@
   <md-card-title class="title">{{title}}</md-card-title>
   <md-card-subtitle class="subtitle">{{subtitle}}</md-card-subtitle>
   <md-card-content class="content">{{content}}</md-card-content>
+  <md-card-actions>
+    <a
+      md-icon-button
+      class="github-button"
+      href="https://github.com/ksmai/"
+      target="_new"
+    ></a>
+  </md-card-actions>
 </md-card>
-
-<a
-  md-button
-  class="github-button"
-  href="https://github.com/ksmai/"
-  target="_new"
->FOLLOW ME ON GITHUB</a>
 
 <button
   md-raised-button
   color="primary"
   class="project-button"
   (click)="viewProjects()"
->View projects</button>
+>VIEW PROJECTS</button>
 
 <button
   md-raised-button
   color="warn"
   class="destroy-button"
   (click)="destroyPage()"
->Destroy this page</button>
+>DESTROY THIS PAGE</button>
 
 <button
   md-icon-button
