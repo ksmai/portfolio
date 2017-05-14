@@ -69,10 +69,12 @@ $github-time: .5s;
   z-index: 3;
   opacity: 0;
   transform: translate(-50%, 100%);
-  width: 180px;
+  width: 175px;
+  font-size: 18.4px;
 }
 
 .project-button {
+  background: hsl(199, 98%, 44%);
   bottom: 15%;
   transition:
     opacity $button-time $ease-out $blast-time,
@@ -80,6 +82,7 @@ $github-time: .5s;
 }
 
 .destroy-button {
+  background: hsl(13, 98%, 54%);
   bottom: calc(15% - 48px);
   transition:
     opacity $button-time $ease-out $fade-time,
