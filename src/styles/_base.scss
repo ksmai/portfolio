@@ -9,3 +9,8 @@ body {
 *:after {
   box-sizing: border-box;
 }
+
+::selection {
+  background-color: #ff7043;
+  color: #fff;
+}
