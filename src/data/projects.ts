@@ -8,8 +8,23 @@ const impulse = require('../../assets/thumbnails/impulse.png');
 const stock = require('../../assets/thumbnails/stock.png');
 const nightlife = require('../../assets/thumbnails/nightlife.png');
 const votingApp = require('../../assets/thumbnails/voting-app.png');
+const spotify = require('../../assets/thumbnails/spotify.png');
 
 export const projects: Project[] = [
+  {
+    name: 'Spotify clone',
+    description: 'A simple music player application',
+    technology: [
+      'Angular 4',
+      'Angular material',
+    ],
+    integrations: [
+      'Spotify',
+    ],
+    github: 'https://github.com/ksmai/spotify-clone',
+    url: 'https://ksmai.github.io/spotify-clone/',
+    thumbnail: spotify,
+  },
   {
     name: 'Pinterest clone',
     description: 'A simple image sharing application',
