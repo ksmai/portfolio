@@ -43,10 +43,11 @@ export class AboutComponent implements AfterViewInit {
   destroyPage(): void {
     this.dialog
       .open(DialogComponent, {
+        width: '400px',
         data: {
           title: 'Destroy this page?',
           requireInput: true,
-          placeholder: 'Reason(s)',
+          placeholder: 'WHY?!',
           positive: 'DESTROY',
           negative: 'CANCEL',
         },
@@ -55,7 +56,7 @@ export class AboutComponent implements AfterViewInit {
       .subscribe((message: boolean|string) => {
         if (typeof message === 'string') {
           this.contactService.setMessage(
-            `Hello!\n\nI have destroyed your portfolio because\n${message}`,
+            `Hello!\nI have destroyed your portfolio because ${message}`,
           );
           this.scrollService.scrollToAbout();
           this.destroyer.destroy(this.el, {
