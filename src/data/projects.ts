@@ -9,11 +9,50 @@ const stock = require('../../assets/thumbnails/stock.png');
 const nightlife = require('../../assets/thumbnails/nightlife.png');
 const votingApp = require('../../assets/thumbnails/voting-app.png');
 const spotify = require('../../assets/thumbnails/spotify.png');
+const productTemplate = require('../../assets/thumbnails/product-template.png');
+const regexClassroom = require('../../assets/thumbnails/regex-classroom.png');
+const adminTemplate = require('../../assets/thumbnails/admin-template.png');
 
 export const projects: Project[] = [
   {
+    name: 'Admin Template',
+    description: 'Admin panel with different UI features',
+    technology: [
+      'Angular 4',
+      'bootstrap',
+      'jquery',
+      'various plugins',
+    ],
+    github: 'https://github.com/ksmai/admin-template',
+    url: 'https://ksmai.github.io/admin-template/',
+    thumbnail: adminTemplate,
+  },
+  {
+    name: 'Regex Classroom',
+    description: 'An app for learning regular expression',
+    technology: [
+      'Angular 4',
+      'Nodejs',
+      'express',
+      'mongoDB',
+    ],
+    github: 'https://github.com/ksmai/regex-classroom',
+    url: 'https://regex-classroom.herokuapp.com/',
+    thumbnail: regexClassroom,
+  },
+  {
+    name: 'Product template',
+    description: 'Showcasting a particular product',
+    technology: [
+      'Angular 4',
+    ],
+    github: 'https://github.com/ksmai/product-template',
+    url: 'https://ksmai.github.io/product-template/',
+    thumbnail: productTemplate,
+  },
+  {
     name: 'Spotify clone',
-    description: 'A simple music player application',
+    description: 'A clone of Spotify music player',
     technology: [
       'Angular 4',
       'Angular material',
@@ -27,7 +66,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Pinterest clone',
-    description: 'A simple image sharing application',
+    description: 'An image sharing application',
     technology: [
       'Angular 4',
       'express',
@@ -42,7 +81,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Book trading app',
-    description: 'A platform for users to connect and trade books with one another',
+    description: 'A platform for trading books',
     technology: [
       'Angular 4',
       'express',
@@ -84,7 +123,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Impulse',
-    description: 'A Chrome extension providing an inspiring new-tab page for boosting productivity',
+    description: 'A Chrome extension to boost productivity',
     technology: [
       'react',
     ],
@@ -113,10 +152,10 @@ export const projects: Project[] = [
   },
   {
     name: 'Stock market',
-    description: 'Chart the stock market based on a user-selected portfolio',
+    description: 'Build charts using inputs from all users',
     technology: [
       'angularJS',
-      'ws',
+      'websocket',
     ],
     integrations: [
       'Google Chart',
@@ -128,7 +167,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Nightlife',
-    description: 'Coordinate nightlife activities by collecting choices from other users',
+    description: 'Nightlife coordination by collecting users\' choices',
     technology: [
       'angularJS',
       'express',
@@ -145,7 +184,7 @@ export const projects: Project[] = [
   },
   {
     name: 'Voting app',
-    description: 'A web application for users to create polls, cast votes, view statistics and more',
+    description: 'Create polls, cast votes, view statistics and more',
     technology: [
       'angularJS',
       'express',
