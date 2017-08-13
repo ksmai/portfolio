@@ -23,16 +23,6 @@ export class ProjectComponent implements OnInit {
       });
   }
 
-  showProject(evt: any, project: Project) {
-    const isLink = evt.target.tagName.match(/^a$/i) ||
-      evt.target.parentNode.tagName.match(/^a$/i);
-    if (isLink) {
-      return;
-    }
-
-    project.showInfo = !project.showInfo;
-  }
-
   @HostListener('window:resize')
   private onResize() {
     this.cols = window && window.innerWidth > 800 ? 2 : 1;

@@ -11,12 +11,7 @@ let component: ProjectComponent;
 let page: Page;
 
 class Page {
-  showSpy: jasmine.Spy;
   firstTile: DebugElement;
-
-  constructor() {
-    this.showSpy = spyOn(component, 'showProject');
-  }
 
   createElements(): void {
     this.firstTile = fixture.debugElement.query(By.css('md-grid-tile'));
@@ -45,9 +40,4 @@ describe('ProjectComponent', () => {
       .compileComponents()
       .then(() => createProjectComponent());
   }));
-
-  it('should show project details on click', () => {
-    page.firstTile.nativeElement.click();
-    expect(page.showSpy).toHaveBeenCalled();
-  });
 });

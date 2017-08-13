@@ -11,6 +11,7 @@ import {
   MdProgressBarModule,
   MdSnackBarModule,
   MdToolbarModule,
+  MdTooltipModule,
 } from '@angular/material';
 
 @NgModule({
@@ -26,6 +27,7 @@ import {
     MdToolbarModule,
     MdProgressBarModule,
     MdGridListModule,
+    MdTooltipModule,
   ],
 
   exports: [
@@ -40,6 +42,7 @@ import {
     MdToolbarModule,
     MdProgressBarModule,
     MdGridListModule,
+    MdTooltipModule,
   ],
 })
 export class MaterialModule {

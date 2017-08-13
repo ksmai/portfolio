@@ -117,7 +117,7 @@ export const projects: Project[] = [
         picture: 'https://avatars3.githubusercontent.com/u/19782461?v=3&s=460',
       },
     ],
-    github: 'https://github.com/Captain-Million/Captain-Million',
+    github: 'https://github.com/Captain-Million/Captain-Million/tree/develop',
     url: 'https://dev-captain-million.herokuapp.com/',
     thumbnail: captainMillion,
   },
