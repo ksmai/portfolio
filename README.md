@@ -1,5 +1,6 @@
-# portfolio (work in progress)
 [![Build Status](https://travis-ci.org/ksmai/portfolio.svg?branch=master)](https://travis-ci.org/ksmai/portfolio)
+
+# portfolio
 https://ksmai.github.io/portfolio/
 
 ## Start dev server
@@ -7,14 +8,18 @@ https://ksmai.github.io/portfolio/
 git clone https://github.com/ksmai/portfolio
 cd portfolio
 yarn
+yarn start
 ```
 
 ## Build for production
 ```
-yarn run rebuild
+yarn run build
 ```
 
 ## Run tests
 ```
 yarn test
 ```
+
+## License
+MIT

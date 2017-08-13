@@ -7,12 +7,10 @@
   "author": "ksmai <kasingmai@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --progress",
+    "build": "yarn run clean && cross-env NODE_ENV=production webpack",
     "clean": "rimraf docs",
     "start": "cross-env NODE_ENV=development webpack-dev-server",
     "lint": "tslint \"src/**/*.ts\"",
-    "lint:fix": "yarn run lint -- --fix",
-    "rebuild": "yarn run clean && yarn run build",
     "test": "cross-env NODE_ENV=test karma start"
   },
   "pre-commit": [
