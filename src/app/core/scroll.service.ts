@@ -28,10 +28,6 @@ export class ScrollService {
     this.scrollToID('contact');
   }
 
-  scrollToTeam() {
-    this.scrollToID('team');
-  }
-
   private scrollToID(id: string) {
     const el = document.getElementById(id) as HTMLElement;
     if (!el) {

@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { ContactModule } from './contact/contact.module';
 import { CoreModule } from './core/core.module';
 import { ProjectModule } from './project/project.module';
-import { TeamModule } from './team/team.module';
 
 @NgModule({
   imports: [
@@ -20,7 +19,6 @@ import { TeamModule } from './team/team.module';
     AboutModule,
     ProjectModule,
     ContactModule,
-    TeamModule,
     CoreModule,
   ],
 
