@@ -1,54 +1,50 @@
-<h2 class="subheading">Contact</h2>
+<div class="backdrop" (click)="openForm()" #backdrop>
+  <span class="button-text" *ngIf="!open; else openedForm">Contact me</span>
 
-<md-card class="card" *ngIf="form">
-  <form (ngSubmit)="submitForm()" [formGroup]="form">
-    <fieldset [disabled]="submitting">
-      <md-input-container>
-        <input type="text" mdInput formControlName="name" name="name">
-        <md-placeholder>Name</md-placeholder>
-        <md-error align="end">{{errors.name}}</md-error>
-        <md-hint align="end">{{hints.name}}</md-hint>
-      </md-input-container>
+  <ng-template #openedForm>
+    <button class="close-button" md-icon-button (click)="closeForm($event)">
+      <md-icon>close</md-icon>
+    </button>
 
-      <md-input-container>
-        <input type="email" mdInput formControlName="email" name="email">
-        <md-placeholder>Email</md-placeholder>
-        <md-error align="end">{{errors.email}}</md-error>
-      </md-input-container>
+    <md-card class="card" *ngIf="form">
+      <form (ngSubmit)="submitForm()" [formGroup]="form">
+        <fieldset [disabled]="submitting">
+          <md-input-container>
+            <input type="text" mdInput formControlName="name" name="name">
+            <md-placeholder>Name</md-placeholder>
+            <md-error align="end">{{errors.name}}</md-error>
+            <md-hint align="end">{{hints.name}}</md-hint>
+          </md-input-container>
 
-      <md-input-container>
-        <textarea
-          mdInput
-          formControlName="message"
-          name="message"
-          rows="5"
-        ></textarea>
-        <md-placeholder>Message</md-placeholder>
-        <md-error align="end">{{errors.message}}</md-error>
-        <md-hint align="end">{{hints.message}}</md-hint>
-      </md-input-container>
-    </fieldset>
+          <md-input-container>
+            <input type="email" mdInput formControlName="email" name="email">
+            <md-placeholder>Email</md-placeholder>
+            <md-error align="end">{{errors.email}}</md-error>
+          </md-input-container>
 
-    <button
-      *ngIf="!submitting"
-      type="submit"
-      md-button
-      [disabled]="form.status !== 'VALID' || submitting"
-    >SEND</button>
+          <md-input-container>
+            <textarea
+              mdInput
+              formControlName="message"
+              name="message"
+              rows="5"
+            ></textarea>
+            <md-placeholder>Message</md-placeholder>
+            <md-error align="end">{{errors.message}}</md-error>
+            <md-hint align="end">{{hints.message}}</md-hint>
+          </md-input-container>
+        </fieldset>
 
-    <md-progress-bar mode="indeterminate" *ngIf="submitting">
-    </md-progress-bar>
-  </form>
-</md-card><!--
+        <button
+          *ngIf="!submitting"
+          type="submit"
+          md-button
+          [disabled]="form.status !== 'VALID' || submitting"
+        >SEND</button>
 
---><md-card class="additional">
-  <md-card-title>
-    Send me any message, any time
-  </md-card-title>
-  <md-card-subtitle>
-    Project ideas, new technology, comments about this page, meaning of life, answer of the universe...
-  </md-card-subtitle>
-  <md-card-content>
-    And yes, I&apos;m available for hire
-  </md-card-content>
-</md-card>
+        <md-progress-bar mode="indeterminate" *ngIf="submitting">
+        </md-progress-bar>
+      </form>
+    </md-card>
+  </ng-template>
+</div>

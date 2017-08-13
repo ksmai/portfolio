@@ -1,20 +1,18 @@
+$ease-in-out: cubic-bezier(.4, 0, .2, 1);
+$ease-explode: cubic-bezier(1, 0, 0, 1);
+
 :host {
   display: block;
-  margin: 100px auto;
+  padding: 50px 100px;
+  text-align: center;
+  min-height: 200px;
 }
 
 .card {
   width: 100%;
-  margin: 0 auto 30px;
-  transform-origin: center top;
-  animation: slide-down .25s cubic-bezier(.4, 0, .6, 1);
-}
-
-.additional {
-  display: none;
-  background: none;
-  box-shadow: none !important;
-  padding-top: 0;
+  max-width: 700px;
+  margin: 70px auto 0;
+  text-align: right;
 }
 
 md-input-container,
@@ -27,25 +25,53 @@ textarea {
   resize: vertical;
 }
 
-@keyframes slide-down {
-  0% {
-    transform: scaleY(0);
-  }
+.backdrop {
+  display: inline-block;
+  border: 2px solid #fff;
+  border-radius: 99px;
+  cursor: pointer;
+  padding: 8px 24px;
+  transition:
+    background-color .7s $ease-in-out .3s,
+    padding .25s $ease-in-out,
+    width .5s $ease-explode,
+    left .5s $ease-explode,
+    top .5s $ease-explode .1s,
+    height .5s $ease-explode .1s,
+    border-radius .3s $ease-in-out .3s;
 
-  100% {
-    transform: scaleY(1);
+  &:hover {
+    background-color: #fff;
+    padding: 8px 32px;
+
+    .button-text {
+      color: #303030;
+    }
   }
 }
 
-@media (min-width: 801px) {
-  .card {
-    display: inline-block;
-    width: 50%;
+:host(.open) {
+  .backdrop {
+    cursor: initial;
   }
+}
 
-  .additional {
-    display: inline-block;
-    width: 50%;
-    vertical-align: top;
+:host(.animating) {
+  .backdrop > * {
+    display: none;
   }
+}
+
+.button-text {
+  text-transform: uppercase;
+  color: #fff;
+  font: 16px/1 "Roboto", sans-serif;
+  transition: color 1.1s cubic-bezier(.4, 0, .2, 1);
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: #fff;
 }
