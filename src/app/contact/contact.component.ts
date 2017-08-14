@@ -133,8 +133,9 @@ export class ContactComponent implements OnInit {
     this.form = null;
     setTimeout(() => this.createForm(), 0);
     this.snackbar.open('Thank you for your message', null, {
-      duration: 2000,
+      duration: 4000,
     });
+    this.closeForm();
   }
 
   submitFailure() {
@@ -151,12 +152,14 @@ export class ContactComponent implements OnInit {
     }
   }
 
-  closeForm(evt: Event): void {
+  closeForm(evt?: Event): void {
+    if (evt) {
+      evt.stopPropagation();
+    }
     if (this.open && !this.animating) {
       this.open = false;
       this.animateClose();
     }
-    evt.stopPropagation();
   }
 
   private animateOpen(): void {
@@ -192,7 +195,6 @@ export class ContactComponent implements OnInit {
       el.style.width = el.style.height;
       el.style.left = `${newLeft}px`;
       el.style.backgroundColor = '#fff';
-      el.style.borderWidth = '0';
       el.style.padding = '8px 24px';
       this.prevStyles.shrinkedLeft = el.style.left;
     });
@@ -201,6 +203,7 @@ export class ContactComponent implements OnInit {
       el.style.left = 0;
       el.style.width = '100%';
       el.style.height = '100%';
+      el.style.borderWidth = '0';
       el.style.borderRadius = '0';
       el.style.backgroundColor = '#303030';
     });
