@@ -16,19 +16,19 @@ export class ScrollService {
   private lastTimestamp = Date.now();
   private ease = BezierEasing(0.74, -0.28, 0, 1);
 
-  scrollToAbout() {
-    this.scrollToID('about');
+  scrollToAbout(done?: any) {
+    this.scrollToID('about', done);
   }
 
-  scrollToProjects() {
-    this.scrollToID('projects');
+  scrollToProjects(done?: any) {
+    this.scrollToID('projects', done);
   }
 
-  scrollToContact() {
-    this.scrollToID('contact');
+  scrollToContact(done?: any) {
+    this.scrollToID('contact', done);
   }
 
-  private scrollToID(id: string) {
+  private scrollToID(id: string, done?: any) {
     const el = document.getElementById(id) as HTMLElement;
     if (!el) {
       return;
@@ -50,7 +50,10 @@ export class ScrollService {
 
         return Observable.of(offset).delay(delay);
       })
-      .subscribe((offset: number) => this.tick(offset));
+      .subscribe({
+        next: (offset: number) => this.tick(offset),
+        complete: done,
+      });
   }
 
   private computeTargetOffset(el: HTMLElement): number {

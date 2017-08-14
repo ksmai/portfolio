@@ -105,6 +105,9 @@ export class ContactComponent implements OnInit {
       .subscribe((message: string) => {
         this.form.patchValue({ message });
       });
+    this.contactService
+      .getPrompts()
+      .subscribe(() => this.openForm());
   }
 
   createForm() {

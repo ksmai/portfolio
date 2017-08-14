@@ -60,7 +60,9 @@ export class AboutComponent implements AfterViewInit {
           );
           this.scrollService.scrollToAbout();
           this.destroyer.destroy(this.el, {
-            complete: () => this.scrollService.scrollToContact(),
+            complete: () => this.scrollService.scrollToContact(
+              () => this.contactService.triggerPrompt(),
+            ),
           });
         }
       });
