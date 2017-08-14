@@ -53,6 +53,7 @@ textarea {
 :host(.open) {
   .backdrop {
     cursor: initial;
+    overflow: auto;
   }
 }
 
