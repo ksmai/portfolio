@@ -78,5 +78,8 @@ module.exports = {
   devServer: {
     noInfo: true,
     hot: true,
+    historyApiFallback: {
+      index: '/portfolio/',
+    },
   },
 };
