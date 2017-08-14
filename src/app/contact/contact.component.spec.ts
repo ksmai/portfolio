@@ -1,5 +1,11 @@
 import { DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -60,8 +66,15 @@ function createContactComponent() {
 
   return fixture.whenStable().then(() => {
     fixture.detectChanges();
-    page.createElements();
   });
+}
+
+function openContactForm() {
+  component.openForm();
+  fixture.detectChanges();
+  tick(10000);
+  fixture.detectChanges();
+  page.createElements();
 }
 
 describe('ContactComponent', () => {
@@ -80,16 +93,25 @@ describe('ContactComponent', () => {
       .then(() => createContactComponent());
   }));
 
-  it('should submit form', () => {
+  it('should submit form', fakeAsync(() => {
+    openContactForm();
     page.fillForm('abc', 'a@b.c', '123');
     page.submitButton.nativeElement.click();
     expect(page.submitSpy).toHaveBeenCalled();
-  });
+  }));
 
-  it('should listen to new messages from ContactService', () => {
+  it('should listen to new messages from ContactService', fakeAsync(() => {
+    openContactForm();
     const message = 'xyzzzz';
     TestBed.get(ContactService).setMessage(message);
     fixture.detectChanges();
     expect(page.messageInput.nativeElement.value).toBe(message);
+  }));
+
+  it('should listen to open prompts from ContactService', () => {
+    expect(component.open).toBe(false);
+    TestBed.get(ContactService).triggerPrompt();
+    fixture.detectChanges();
+    expect(component.open).toBe(true);
   });
 });

@@ -64,4 +64,11 @@ describe('ContactService', () => {
     });
     contactService.setMessage(message);
   });
+
+  it('should maintain a stream of open prompts', (done) => {
+    contactService.getPrompts().subscribe(() => {
+      done();
+    });
+    contactService.triggerPrompt();
+  });
 });

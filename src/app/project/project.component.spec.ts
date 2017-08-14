@@ -40,4 +40,8 @@ describe('ProjectComponent', () => {
       .compileComponents()
       .then(() => createProjectComponent());
   }));
+
+  it('should fetch a list of projects to be displayed', () => {
+    expect(component.projects.length).toBeGreaterThan(0);
+  });
 });
