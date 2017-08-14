@@ -134,6 +134,8 @@
   transition: transform 1.5s cubic-bezier(.4, 0, .2, 1);
 }
 
+.tile:focus,
+.tile:active,
 .tile:hover {
   .thumbnail {
     transform: rotateY(180deg);

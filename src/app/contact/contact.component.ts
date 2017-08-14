@@ -145,14 +145,14 @@ export class ContactComponent implements OnInit {
   }
 
   openForm(): void {
-    if (!this.open) {
+    if (!this.open && !this.animating) {
       this.open = true;
       this.animateOpen();
     }
   }
 
   closeForm(evt: Event): void {
-    if (this.open) {
+    if (this.open && !this.animating) {
       this.open = false;
       this.animateClose();
     }
